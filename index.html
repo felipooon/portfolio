@@ -3,19 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Felipe Godoy Pérez — Registro Técnico</title>
+  <title>Felipe Godoy Pérez — Catálogo Técnico &amp; Portafolio Editorial</title>
+  <meta name="description" content="Portafolio editorial de Felipe Godoy Pérez: arquitecturas web, e-commerce, cartografía en tiempo real y desarrollos técnicos.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #faf7f2;
-      --surface: #f3eee5;
+      --bg: #f9f8f6;
+      --surface: #f3efe8;
+      --surface-matte: #ede7dc;
       --text: #1a1714;
+      --text-soft: #38322a;
       --text-muted: #6e675d;
-      --border: #dcd3c4;
-      --border-dark: #b5a995;
-      --accent: #8b3a22; /* Lacre / arcilla editorial */
+      --border: #dfd7c9;
+      --border-dark: #b5a894;
+      --accent: #8b3a22; /* Arcilla / lacre tipográfico */
+      --accent-hover: #5d2515;
       --font-serif: 'Newsreader', Georgia, serif;
       --font-title: 'Cinzel', serif;
       --font-mono: 'Space Mono', monospace;
@@ -31,63 +35,82 @@
       background-color: var(--bg);
       color: var(--text);
       font-family: var(--font-serif);
-      font-size: 1.05rem;
-      line-height: 1.7;
-      padding: 4.5rem 1.5rem;
-      background-image: radial-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 0);
-      background-size: 20px 20px;
+      font-size: 1.06rem;
+      line-height: 1.72;
+      padding: 4.5rem 1.75rem;
+      background-image: radial-gradient(rgba(30, 25, 20, 0.04) 1px, transparent 0);
+      background-size: 22px 22px;
+      -webkit-font-smoothing: antialiased;
     }
 
     .container {
-      max-width: 820px;
+      max-width: 900px;
       margin: 0 auto;
     }
 
-    /* Cabecera */
+    /* Friso y colofón superior */
     header {
-      margin-bottom: 3.5rem;
-      padding-bottom: 1.75rem;
+      margin-bottom: 4rem;
+      padding-bottom: 2rem;
       border-bottom: 2px solid var(--text);
     }
 
     .meta-top {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.73rem;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       color: var(--text-muted);
       display: flex;
       justify-content: space-between;
-      margin-bottom: 1.25rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 0.35rem;
+      padding-bottom: 0.45rem;
+    }
+
+    .meta-top span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .meta-pill {
+      font-size: 0.65rem;
+      border: 1px solid var(--border-dark);
+      padding: 0.1rem 0.45rem;
+      background: rgba(255,255,255,0.4);
     }
 
     h1 {
       font-family: var(--font-title);
-      font-size: 2.1rem;
+      font-size: 2.35rem;
       font-weight: 600;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.03em;
       line-height: 1.15;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.35rem;
+      color: var(--text);
     }
 
     .role-title {
-      font-size: 1.08rem;
+      font-size: 1.12rem;
       font-style: italic;
       color: var(--text-muted);
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.35rem;
+      letter-spacing: 0.01em;
     }
 
     .intro-text {
-      font-size: 1.02rem;
-      color: #302b25;
-      max-width: 720px;
+      font-size: 1.05rem;
+      color: var(--text-soft);
+      max-width: 780px;
+      text-align: justify;
+      hyphens: auto;
     }
 
-    /* Encabezados de sección */
+    /* Encabezados de sección tipo lámina */
     section {
-      margin-bottom: 4rem;
+      margin-bottom: 4.5rem;
     }
 
     .section-bar {
@@ -95,102 +118,186 @@
       justify-content: space-between;
       align-items: baseline;
       border-bottom: 1px solid var(--border-dark);
-      padding-bottom: 0.4rem;
-      margin-bottom: 2rem;
+      padding-bottom: 0.5rem;
+      margin-bottom: 2.25rem;
     }
 
     h2 {
       font-family: var(--font-title);
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.09em;
       text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    h2::before {
+      content: "§";
+      color: var(--accent);
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: normal;
     }
 
     .folio-num {
       font-family: var(--font-mono);
       font-size: 0.72rem;
       color: var(--text-muted);
+      letter-spacing: 0.06em;
     }
 
-    /* Grid de tarjetas compactas */
-    .cards-grid {
+    /* ====================================================
+       PLANCHAS EDITORIALES VISUALES (Sin tarjetas plásticas)
+       ==================================================== */
+    .plates-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 1.75rem;
+      gap: 2.5rem 2rem;
     }
 
-    .plate-card {
-      background: #fdfbf7;
-      border: 1px solid var(--border-dark);
-      padding: 0.9rem;
+    .editorial-plate {
       display: flex;
       flex-direction: column;
-      box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.03);
-      transition: border-color 0.2s ease, transform 0.15s ease;
+      position: relative;
     }
 
-    .plate-card:hover {
+    /* Marco paspartú / passe-partout para la captura */
+    .plate-matte {
+      background: var(--surface-matte);
+      border: 1px solid var(--border-dark);
+      padding: 0.65rem;
+      position: relative;
+      cursor: zoom-in;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .plate-matte::before {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      pointer-events: none;
+    }
+
+    .plate-matte:hover {
       border-color: var(--text);
-      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(40, 30, 20, 0.08);
     }
 
-    /* Miniatura real del sitio */
-    .plate-thumb-wrapper {
+    .plate-viewport {
       position: relative;
       width: 100%;
-      height: 140px;
-      background: var(--surface);
-      border: 1px solid var(--border);
+      height: 220px;
       overflow: hidden;
-      margin-bottom: 0.75rem;
+      background: #000;
+      border: 1px solid var(--border-dark);
     }
 
-    .plate-thumb {
+    .plate-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: top center;
-      filter: contrast(98%) brightness(99%);
       display: block;
-      transition: filter 0.2s ease, transform 0.2s ease;
+      filter: contrast(98%) brightness(98%);
+      transition: transform 0.35s cubic-bezier(0.2, 0, 0.2, 1), filter 0.25s ease;
     }
 
-    .plate-card:hover .plate-thumb {
-      transform: scale(1.02);
+    .plate-matte:hover .plate-img {
+      transform: scale(1.025);
+      filter: contrast(100%) brightness(100%);
     }
 
-    .plate-legend {
-      display: flex;
-      justify-content: space-between;
+    /* Puntero de inspección */
+    .plate-badge-zoom {
+      position: absolute;
+      bottom: 0.5rem;
+      right: 0.5rem;
+      background: rgba(26, 23, 20, 0.82);
+      color: #fff;
       font-family: var(--font-mono);
-      font-size: 0.65rem;
+      font-size: 0.62rem;
+      padding: 0.2rem 0.45rem;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      margin-bottom: 0.35rem;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      backdrop-filter: blur(2px);
     }
 
-    .card-title {
-      font-family: var(--font-title);
-      font-size: 1.08rem;
-      font-weight: 600;
-      line-height: 1.25;
-      margin-bottom: 0.4rem;
-      color: var(--text);
+    .plate-matte:hover .plate-badge-zoom {
+      opacity: 1;
     }
 
-    .card-summary {
-      font-size: 0.92rem;
-      color: #423d35;
-      line-height: 1.5;
-      margin-bottom: 1.1rem;
+    /* Leyenda tipográfica bajo la lámina */
+    .plate-caption {
+      margin-top: 0.85rem;
+      display: flex;
+      flex-direction: column;
       flex-grow: 1;
     }
 
-    .card-actions {
+    .plate-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.35rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .fig-number {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.68rem;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    .plate-domain {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+    }
+
+    .plate-title {
+      font-family: var(--font-title);
+      font-size: 1.18rem;
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+
+    .plate-tech {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-bottom: 0.65rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .plate-tech span {
+      background: rgba(223, 215, 201, 0.4);
+      padding: 0.05rem 0.35rem;
+      border: 1px solid var(--border);
+    }
+
+    .plate-desc {
+      font-size: 0.94rem;
+      color: var(--text-soft);
+      line-height: 1.55;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .plate-links {
+      font-family: var(--font-mono);
+      font-size: 0.73rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -199,75 +306,239 @@
       margin-top: auto;
     }
 
-    .card-actions a {
+    .plate-links a {
       color: var(--accent);
       text-decoration: none;
       border-bottom: 1px solid currentColor;
       padding-bottom: 1px;
+      transition: color 0.15s ease, border-color 0.15s ease;
     }
 
-    .card-actions a.source-link {
+    .plate-links a.source-link {
       color: var(--text-muted);
       border-bottom-color: var(--border-dark);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
     }
 
-    .card-actions a:hover {
-      opacity: 0.7;
+    .plate-links a:hover {
+      color: var(--accent-hover);
+      border-bottom-color: var(--accent-hover);
     }
 
-    /* Sección inferior: Registros complementarios */
+    .plate-links a.source-link:hover {
+      color: var(--text);
+      border-bottom-color: var(--text);
+    }
+
+    /* ====================================================
+       ARCHIVO DE DESARROLLOS TÉCNICOS & SISTEMAS
+       ==================================================== */
     .record-index {
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
+      gap: 1.75rem;
     }
 
-    .record-row {
+    .record-entry {
       display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 1.5rem;
-      padding-bottom: 1.25rem;
-      border-bottom: 1px dashed var(--border);
+      grid-template-columns: 260px 1fr;
+      gap: 2.25rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px dashed var(--border-dark);
+      position: relative;
     }
 
-    .record-row:last-child {
+    .record-entry:last-child {
       border-bottom: none;
       padding-bottom: 0;
     }
 
+    .record-entry.featured {
+      background: rgba(243, 239, 232, 0.5);
+      border-left: 3px solid var(--accent);
+      padding: 1.25rem 1.25rem 1.5rem 1.25rem;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
     .record-meta h3 {
-      font-size: 1.05rem;
-      font-weight: 500;
+      font-family: var(--font-title);
+      font-size: 1.15rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 0.3rem;
     }
 
     .record-meta h3 a {
       color: var(--text);
-      text-decoration: underline;
-      text-underline-offset: 3px;
+      text-decoration: none;
+      border-bottom: 1px solid var(--border-dark);
+      padding-bottom: 1px;
     }
 
-    .record-sub {
+    .record-meta h3 a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .record-tagline {
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.71rem;
       color: var(--text-muted);
-      margin-top: 0.2rem;
+      margin-bottom: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .record-repo-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--border-dark);
+      padding: 0.25rem 0.55rem;
+      background: var(--bg);
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .record-repo-btn:hover {
+      background: var(--surface);
+      border-color: var(--accent);
+      color: var(--accent-hover);
+    }
+
+    .record-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
 
     .record-desc {
-      font-size: 0.94rem;
-      color: #454038;
-      line-height: 1.6;
+      font-size: 0.98rem;
+      color: var(--text-soft);
+      line-height: 1.62;
     }
 
-    /* Colofón */
-    footer {
-      border-top: 2px solid var(--text);
-      padding-top: 1.75rem;
+    .record-specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+
+    .spec-item {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 0.15rem 0.5rem;
+    }
+
+    /* ====================================================
+       LIGHTBOX ARCHIVAL / VISUALIZADOR DE LÁMINA
+       ==================================================== */
+    .lightbox-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(22, 19, 16, 0.88);
+      backdrop-filter: blur(5px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .lightbox-modal.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox-content {
+      background: var(--bg);
+      border: 1px solid var(--border-dark);
+      max-width: 1040px;
+      width: 100%;
+      padding: 1.25rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+      position: relative;
+    }
+
+    .lightbox-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.85rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .lightbox-close {
+      background: none;
+      border: 1px solid var(--border-dark);
+      padding: 0.2rem 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      cursor: pointer;
+      color: var(--text);
+      transition: all 0.15s ease;
+    }
+
+    .lightbox-close:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .lightbox-img-wrap {
+      width: 100%;
+      max-height: 72vh;
+      overflow-y: auto;
+      border: 1px solid var(--border-dark);
+      background: #111;
+    }
+
+    .lightbox-img-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .lightbox-footer {
+      margin-top: 0.85rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-family: var(--font-mono);
-      font-size: 0.74rem;
+      font-size: 0.75rem;
+    }
+
+    .lightbox-footer a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid currentColor;
+    }
+
+    /* Colofón / Pie de imprenta */
+    footer {
+      border-top: 2px solid var(--text);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
       color: var(--text-muted);
     }
 
@@ -275,6 +546,7 @@
       color: var(--text);
       text-decoration: none;
       border-bottom: 1px solid var(--border-dark);
+      padding-bottom: 1px;
     }
 
     footer a:hover {
@@ -282,11 +554,14 @@
       border-color: var(--accent);
     }
 
-    @media (max-width: 680px) {
-      body { padding: 3rem 1.2rem; }
-      .cards-grid { grid-template-columns: 1fr; }
-      .record-row { grid-template-columns: 1fr; gap: 0.4rem; }
-      footer { flex-direction: column; gap: 0.8rem; align-items: flex-start; }
+    @media (max-width: 768px) {
+      body { padding: 3rem 1.25rem; font-size: 1rem; }
+      h1 { font-size: 1.85rem; }
+      .plates-grid { grid-template-columns: 1fr; gap: 2.25rem; }
+      .plate-viewport { height: 200px; }
+      .record-entry { grid-template-columns: 1fr; gap: 0.6rem; }
+      .meta-top { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+      footer { flex-direction: column; gap: 1rem; align-items: flex-start; }
     }
   </style>
 </head>
@@ -294,112 +569,184 @@
 
   <div class="container">
 
+    <!-- FRONTISPICIO & CABECERA EDITORIAL -->
     <header>
       <div class="meta-top">
-        <span>Registro Técnico &bull; Proyectos</span>
-        <span>Puerto Montt, CL &bull; 41°28′ S</span>
+        <span>Registro Técnico &bull; Desarrollos de Software</span>
+        <span>
+          <span class="meta-pill">Edición 2026</span>
+          Puerto Montt, CL &bull; 41°28′ S
+        </span>
       </div>
       <h1>Felipe Godoy Pérez</h1>
-      <p class="role-title">Desarrollador Web, Backend &amp; Sistemas de Terreno</p>
+      <p class="role-title">Ingeniería Web, Arquitectura Backend &amp; Sistemas de Campo</p>
       <p class="intro-text">
-        Desarrollo de arquitecturas backend modulares, plataformas de comercio electrónico, cartografía interactiva en tiempo real e instrumentación para bioacústica y monitoreo ambiental.
+        Compilación de sistemas en producción y arquitecturas de software: aplicaciones de comercio digital, plataformas reactivas con Astro y Django, módulos cartográficos de telemetría geoespacial en tiempo real, e integración de hardware pasivo para bioacústica y monitoreo ambiental.
       </p>
     </header>
 
-    <!-- PROYECTOS PRINCIPALES CON CAPTURA REAL Y TARJETAS PEQUEÑAS -->
+    <!-- PLANCHAS PRINCIPALES: VISTAS Y CAPTURAS REALES -->
     <section>
       <div class="section-bar">
-        <h2>Planchas Principales</h2>
+        <h2>Planchas &amp; Sistemas Principales</h2>
         <span class="folio-num">[ Folio 01 &ndash; 04 ]</span>
       </div>
 
-      <div class="cards-grid">
+      <div class="plates-grid">
 
-        <!-- CARD 1: RAPIDASSURE -->
-        <article class="plate-card">
-          <div class="plate-thumb-wrapper">
-            <img class="plate-thumb" 
-                 src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Frapidassure.onrender.com?w=800" 
-                 alt="Captura de rapidassure.onrender.com" 
-                 loading="lazy">
+        <!-- LÁMINA I: RAPIDASSURE -->
+        <article class="editorial-plate">
+          <div class="plate-matte" onclick="openLightbox('assets/screenshots/rapidassure.png', 'Lámina I: RapidAssure (rapidassure.onrender.com)', 'https://rapidassure.onrender.com')">
+            <div class="plate-viewport">
+              <picture>
+                <source srcset="assets/screenshots/rapidassure.webp" type="image/webp">
+                <img class="plate-img" 
+                     src="assets/screenshots/rapidassure.png" 
+                     alt="Captura real del sitio web RapidAssure" 
+                     loading="lazy">
+              </picture>
+              <div class="plate-badge-zoom">Inspeccionar &oplus;</div>
+            </div>
           </div>
-          <div class="plate-legend">
-            <span>FIG. I</span>
-            <span>Render Cloud</span>
-          </div>
-          <h3 class="card-title">Rapidassure</h3>
-          <p class="card-summary">
-            Catálogo web y plataforma tecnológica con arquitectura en Render y gestión de catálogo digital.
-          </p>
-          <div class="card-actions">
-            <a href="https://rapidassure.onrender.com" target="_blank" rel="noopener">rapidassure.onrender.com &rarr;</a>
-            <a href="https://github.com/felipooon/rapidassure" target="_blank" rel="noopener" class="source-link">Git</a>
+          <div class="plate-caption">
+            <div class="plate-header-row">
+              <span class="fig-number">FIG. 01 &mdash; E-CATALOG</span>
+              <span class="plate-domain">rapidassure.onrender.com</span>
+            </div>
+            <h3 class="plate-title">RapidAssure Retail</h3>
+            <div class="plate-tech">
+              <span>Astro</span>
+              <span>Tailwind CSS</span>
+              <span>Vite</span>
+              <span>Render Cloud</span>
+            </div>
+            <p class="plate-desc">
+              Plataforma de catálogo tecnológico de alto rendimiento y arquitectura moderna. Implementación con generación estática e islas interactivas, cotizaciones en línea y diseño responsivo para insumos digitales y periféricos.
+            </p>
+            <div class="plate-links">
+              <a href="https://rapidassure.onrender.com" target="_blank" rel="noopener">rapidassure.onrender.com &rarr;</a>
+              <a href="https://github.com/felipooon/rapidassure" target="_blank" rel="noopener" class="source-link">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                GitHub
+              </a>
+            </div>
           </div>
         </article>
 
-        <!-- CARD 2: RARA TIENDA -->
-        <article class="plate-card">
-          <div class="plate-thumb-wrapper">
-            <img class="plate-thumb" 
-                 src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fraratienda.cl?w=800" 
-                 alt="Captura de raratienda.cl" 
-                 loading="lazy">
+        <!-- LÁMINA II: RARA TIENDA -->
+        <article class="editorial-plate">
+          <div class="plate-matte" onclick="openLightbox('assets/screenshots/raratienda.png', 'Lámina II: Rara Tienda (raratienda.cl)', 'https://raratienda.cl')">
+            <div class="plate-viewport">
+              <picture>
+                <source srcset="assets/screenshots/raratienda.webp" type="image/webp">
+                <img class="plate-img" 
+                     src="assets/screenshots/raratienda.png" 
+                     alt="Captura real del portal Rara Tienda" 
+                     loading="lazy">
+              </picture>
+              <div class="plate-badge-zoom">Inspeccionar &oplus;</div>
+            </div>
           </div>
-          <div class="plate-legend">
-            <span>FIG. II</span>
-            <span>E-Commerce</span>
-          </div>
-          <h3 class="card-title">Rara Tienda</h3>
-          <p class="card-summary">
-            Tienda en línea completa con panel de administración propio para gestión de stock, inventario y despacho.
-          </p>
-          <div class="card-actions">
-            <a href="https://raratienda.cl" target="_blank" rel="noopener">raratienda.cl &rarr;</a>
-            <a href="https://github.com/felipooon/rara-app" target="_blank" rel="noopener" class="source-link">Git</a>
-          </div>
-        </article>
-
-        <!-- CARD 3: LEPIGAMES -->
-        <article class="plate-card">
-          <div class="plate-thumb-wrapper">
-            <img class="plate-thumb" 
-                 src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Flepigames.cl?w=800" 
-                 alt="Captura de lepigames.cl" 
-                 loading="lazy">
-          </div>
-          <div class="plate-legend">
-            <span>FIG. III</span>
-            <span>Juegos &amp; Cartas</span>
-          </div>
-          <h3 class="card-title">Lepigames</h3>
-          <p class="card-summary">
-            Sitio web enfocado en el catálogo lúdico, coleccionismo de cartas y experiencias interactivas en línea.
-          </p>
-          <div class="card-actions">
-            <a href="https://lepigames.cl" target="_blank" rel="noopener">lepigames.cl &rarr;</a>
-            <a href="https://github.com/felipooon/Lepigames" target="_blank" rel="noopener" class="source-link">Git</a>
+          <div class="plate-caption">
+            <div class="plate-header-row">
+              <span class="fig-number">FIG. 02 &mdash; E-COMMERCE</span>
+              <span class="plate-domain">raratienda.cl</span>
+            </div>
+            <h3 class="plate-title">Rara Tienda</h3>
+            <div class="plate-tech">
+              <span>Django</span>
+              <span>Python</span>
+              <span>PostgreSQL</span>
+              <span>Linux VPS</span>
+            </div>
+            <p class="plate-desc">
+              Comercio electrónico completo para diseño inspirado en aves nativas de Chile. Incluye panel de control administrativo a medida, control de inventario, pasarela de cobro, gestión de pedidos y seguimiento de despachos a nivel nacional.
+            </p>
+            <div class="plate-links">
+              <a href="https://raratienda.cl" target="_blank" rel="noopener">raratienda.cl &rarr;</a>
+              <a href="https://github.com/felipooon/rara-app" target="_blank" rel="noopener" class="source-link">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                GitHub
+              </a>
+            </div>
           </div>
         </article>
 
-        <!-- CARD 4: GBDMAP / RADAR REALTIME -->
-        <article class="plate-card">
-          <div class="plate-thumb-wrapper">
-            <img class="plate-thumb" 
-                 src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fraratienda.cl%2Fjuegos%2Fradar-realtime%2F?w=800" 
-                 alt="Captura de radar-realtime" 
-                 loading="lazy">
+        <!-- LÁMINA III: LEPIGAMES -->
+        <article class="editorial-plate">
+          <div class="plate-matte" onclick="openLightbox('assets/screenshots/lepigames.png', 'Lámina III: Lepigames (lepigames.cl)', 'https://lepigames.cl')">
+            <div class="plate-viewport">
+              <picture>
+                <source srcset="assets/screenshots/lepigames.webp" type="image/webp">
+                <img class="plate-img" 
+                     src="assets/screenshots/lepigames.png" 
+                     alt="Captura real del proyecto Lepigames" 
+                     loading="lazy">
+              </picture>
+              <div class="plate-badge-zoom">Inspeccionar &oplus;</div>
+            </div>
           </div>
-          <div class="plate-legend">
-            <span>FIG. IV</span>
-            <span>Cartografía</span>
+          <div class="plate-caption">
+            <div class="plate-header-row">
+              <span class="fig-number">FIG. 03 &mdash; GAMING &amp; CARDS</span>
+              <span class="plate-domain">lepigames.cl</span>
+            </div>
+            <h3 class="plate-title">Lepigames</h3>
+            <div class="plate-tech">
+              <span>Astro</span>
+              <span>TypeScript</span>
+              <span>CSS Modules</span>
+              <span>Vercel</span>
+            </div>
+            <p class="plate-desc">
+              Portal y catálogo interactivo dedicado al universo de cartas coleccionables, juegos de mesa y divulgación de biodiversidad. Desarrollado en la Región de Los Lagos con un diseño gráfico orgánico y experiencia fluida.
+            </p>
+            <div class="plate-links">
+              <a href="https://lepigames.cl" target="_blank" rel="noopener">lepigames.cl &rarr;</a>
+              <a href="https://github.com/felipooon/Lepigames" target="_blank" rel="noopener" class="source-link">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                GitHub
+              </a>
+            </div>
           </div>
-          <h3 class="card-title">GBDMap / Radar</h3>
-          <p class="card-summary">
-            Módulo cartográfico y radar en tiempo real para interacción geoespacial y visualización sobre el mapa.
-          </p>
-          <div class="card-actions">
-            <a href="https://raratienda.cl/juegos/radar-realtime/" target="_blank" rel="noopener">Abrir Radar &rarr;</a>
-            <a href="https://github.com/felipooon/gbdmap" target="_blank" rel="noopener" class="source-link">Git</a>
+        </article>
+
+        <!-- LÁMINA IV: GBDMAP & RADAR REALTIME -->
+        <article class="editorial-plate">
+          <div class="plate-matte" onclick="openLightbox('assets/screenshots/radar.png', 'Lámina IV: Radar Realtime & GBDMap', 'https://raratienda.cl/juegos/radar-realtime/')">
+            <div class="plate-viewport">
+              <picture>
+                <source srcset="assets/screenshots/radar.webp" type="image/webp">
+                <img class="plate-img" 
+                     src="assets/screenshots/radar.png" 
+                     alt="Captura real del Radar Realtime y GBDMap" 
+                     loading="lazy">
+              </picture>
+              <div class="plate-badge-zoom">Inspeccionar &oplus;</div>
+            </div>
+          </div>
+          <div class="plate-caption">
+            <div class="plate-header-row">
+              <span class="fig-number">FIG. 04 &mdash; CARTOGRAFÍA &amp; DATOS</span>
+              <span class="plate-domain">raratienda.cl/juegos/radar-realtime/</span>
+            </div>
+            <h3 class="plate-title">GBDMap &amp; Radar Realtime</h3>
+            <div class="plate-tech">
+              <span>Leaflet JS</span>
+              <span>eBird API 2.0</span>
+              <span>GeoJSON</span>
+              <span>OpenStreetMap</span>
+            </div>
+            <p class="plate-desc">
+              Cartografía interactiva y radar satelital en vivo para avistamiento ornitológico en la Región de Los Lagos. Conexión directa a la API de eBird para renderizado de listas activas, especies observadas en tiempo real y posicionamiento geoespacial.
+            </p>
+            <div class="plate-links">
+              <a href="https://raratienda.cl/juegos/radar-realtime/" target="_blank" rel="noopener">Abrir Radar &rarr;</a>
+              <a href="https://github.com/felipooon/gbdmap" target="_blank" rel="noopener" class="source-link">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                GitHub
+              </a>
+            </div>
           </div>
         </article>
 
@@ -409,54 +756,137 @@
     <!-- ARCHIVO TÉCNICO Y OTROS DESARROLLOS -->
     <section>
       <div class="section-bar">
-        <h2>Archivo de Desarrollos</h2>
-        <span class="folio-num">[ Folio 05 ]</span>
+        <h2>Archivo de Desarrollos Técnicos</h2>
+        <span class="folio-num">[ Folio 05 &ndash; 07 ]</span>
       </div>
 
       <div class="record-index">
 
-        <div class="record-row">
+        <!-- AGENDA CLÍNICA (DESTACADO SEGÚN REQUERIMIENTO) -->
+        <article class="record-entry featured">
           <div class="record-meta">
             <h3><a href="https://github.com/felipooon/agenda-clinica" target="_blank" rel="noopener">Agenda Clínica</a></h3>
-            <div class="record-sub">Django &bull; Multi-tenant</div>
+            <div class="record-tagline">Django &bull; Gestión Médica</div>
+            <a href="https://github.com/felipooon/agenda-clinica" target="_blank" rel="noopener" class="record-repo-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              github.com/felipooon/agenda-clinica
+            </a>
           </div>
-          <p class="record-desc">
-            Sistema de reservas médicas con roles segmentados por facultativo, visualización dinámica de citas y panel de administración clínica.
-          </p>
-        </div>
+          <div class="record-detail">
+            <p class="record-desc">
+              Sistema integral para reserva y calendarización de horas médicas con arquitectura modular en Django 4.2. Dispone de segmentación por facultativo y especialidad, soporte para notificaciones vía Twilio (SMS / mensajería), sincronización bidireccional mediante estándares iCalendar (.ics), motor REST para integraciones y generación programática de comprobantes clínicos en PDF mediante xhtml2pdf.
+            </p>
+            <div class="record-specs">
+              <span class="spec-item">Django 4.2</span>
+              <span class="spec-item">Django REST Framework</span>
+              <span class="spec-item">Twilio API</span>
+              <span class="spec-item">iCalendar RFC 5545</span>
+              <span class="spec-item">xhtml2pdf Generator</span>
+            </div>
+          </div>
+        </article>
 
-        <div class="record-row">
+        <!-- SISTEMA DE BIOACÚSTICA -->
+        <article class="record-entry">
           <div class="record-meta">
             <h3>Bioacústica Autónoma</h3>
-            <div class="record-sub">Pico &bull; MicroPython</div>
+            <div class="record-tagline">MicroPython &bull; RP2040</div>
+            <span class="record-repo-btn" style="color:var(--text-muted); cursor:default;">Hardware en Terreno</span>
           </div>
-          <p class="record-desc">
-            Hardware programado para monitoreo pasivo de fauna y registro sonoro de avifauna con micrófonos MEMS y temporizador RTC de ultra bajo consumo.
-          </p>
-        </div>
+          <div class="record-detail">
+            <p class="record-desc">
+              Grabadores autónomos de ultra bajo consumo energético para muestreo acústico pasivo (PAM) de avifauna y quirópteros en el bosque templado lluvioso. Equipados con micrófono MEMS digital, reloj en tiempo real (RTC) y esquemas de hibernación profunda alimentados por celda LiFePO4.
+            </p>
+            <div class="record-specs">
+              <span class="spec-item">Raspberry Pi Pico</span>
+              <span class="spec-item">MicroPython</span>
+              <span class="spec-item">I2S / MEMS Mic</span>
+              <span class="spec-item">Sleep Power Mgmt</span>
+            </div>
+          </div>
+        </article>
 
-        <div class="record-row">
+        <!-- TELEMETRÍA SOLAR 4G -->
+        <article class="record-entry">
           <div class="record-meta">
             <h3>Monitoreo Solar 4G</h3>
-            <div class="record-sub">IoT &bull; Fauna Marina</div>
+            <div class="record-tagline">IoT &bull; Fauna Marina</div>
+            <span class="record-repo-btn" style="color:var(--text-muted); cursor:default;">Red Remota IoT</span>
           </div>
-          <p class="record-desc">
-            Estaciones autónomas de fotomonitoreo en acantilados con enlace celular para investigación y censos de aves costeras.
-          </p>
-        </div>
+          <div class="record-detail">
+            <p class="record-desc">
+              Nodos de telemetría y fototrampeo montados en acantilados y costas del Seno de Reloncaví para el seguimiento de aves marinas y pingüinos de Magallanes. Integración con módem LTE celular y enlace MQTT para transmisión de métricas ambientales e imágenes comprimidas a servidor central.
+            </p>
+            <div class="record-specs">
+              <span class="spec-item">ESP32 / LTE SIM7600</span>
+              <span class="spec-item">MQTT / TLS</span>
+              <span class="spec-item">Solar Harvesting</span>
+              <span class="spec-item">Linux InfluxDB</span>
+            </div>
+          </div>
+        </article>
 
       </div>
     </section>
 
-    <!-- PIE DE PÁGINA -->
+    <!-- COLOFÓN / PIE DE PÁGINA -->
     <footer>
-      <span>&copy; Felipe Godoy Pérez &mdash; Catálogo Personal</span>
+      <span>&copy; Felipe Godoy Pérez &mdash; Catálogo &amp; Archivo Técnico</span>
       <div>
-        <a href="https://github.com/felipooon" target="_blank" rel="noopener">github.com/felipooon</a>
+        <a href="https://github.com/felipooon" target="_blank" rel="noopener">github.com/felipooon &rarr;</a>
       </div>
     </footer>
 
   </div>
+
+  <!-- MODAL / LIGHTBOX EDITORIAL PARA INSPECCIONAR CAPTURAS -->
+  <div id="lightbox" class="lightbox-modal" onclick="closeLightbox(event)">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+      <div class="lightbox-topbar">
+        <span id="lightbox-title">Lámina de Inspección</span>
+        <button class="lightbox-close" onclick="closeLightbox(null)">[ Cerrar ESC &times; ]</button>
+      </div>
+      <div class="lightbox-img-wrap">
+        <img id="lightbox-img" src="" alt="Captura ampliada">
+      </div>
+      <div class="lightbox-footer">
+        <span id="lightbox-footnote">Archivo de imagen original &bull; Formato de alta resolución</span>
+        <a id="lightbox-link" href="#" target="_blank" rel="noopener">Visitar sitio web oficial &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openLightbox(src, title, url) {
+      const modal = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      const titleElem = document.getElementById('lightbox-title');
+      const linkElem = document.getElementById('lightbox-link');
+
+      img.src = src;
+      titleElem.textContent = title;
+      linkElem.href = url;
+      linkElem.textContent = 'Visitar ' + url.replace(/^https?:\/\//, '') + ' \u2192';
+
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(e) {
+      if (e && e.target && e.target.closest('.lightbox-content') && !e.target.classList.contains('lightbox-close')) {
+        return;
+      }
+      const modal = document.getElementById('lightbox');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeLightbox(null);
+      }
+    });
+  </script>
 
 </body>
 </html>
