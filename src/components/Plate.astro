@@ -6,12 +6,15 @@ interface Props {
 }
 
 const { plate } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '') + '/';
+const webpUrl = `${baseUrl}${plate.imageWebp.replace(/^\//, '')}`;
+const pngUrl = `${baseUrl}${plate.imagePng.replace(/^\//, '')}`;
 ---
 
 <article class="editorial-plate">
   <div 
     class="plate-matte" 
-    data-lightbox-src={plate.imagePng}
+    data-lightbox-src={pngUrl}
     data-lightbox-title={`${plate.fig}: ${plate.title} (${plate.domain})`}
     data-lightbox-url={plate.liveUrl}
     tabindex="0"
@@ -20,10 +23,10 @@ const { plate } = Astro.props;
   >
     <div class="plate-viewport">
       <picture>
-        <source srcset={plate.imageWebp} type="image/webp" />
+        <source srcset={webpUrl} type="image/webp" />
         <img 
           class="plate-img" 
-          src={plate.imagePng} 
+          src={pngUrl} 
           alt={plate.alt} 
           loading="lazy" 
         />
