@@ -7,6 +7,7 @@ export interface VisualPlate {
   imageWebp: string;
   alt: string;
   tech: string[];
+  collaboration?: string;
   description: string;
   liveUrl: string;
   repoUrl: string;
@@ -25,14 +26,15 @@ export interface TechnicalRecord {
 export const VISUAL_PLATES: VisualPlate[] = [
   {
     fig: "FIG. 01",
-    category: "E-CATALOG",
+    category: "E-COMMERCE",
     domain: "rapidassure.onrender.com",
     title: "RapidAssure Retail",
     imagePng: "assets/screenshots/rapidassure.png",
     imageWebp: "assets/screenshots/rapidassure.webp",
     alt: "Captura real del sitio web RapidAssure",
     tech: ["Astro", "Tailwind CSS", "Vite", "Render Cloud"],
-    description: "Plataforma de catálogo tecnológico de alto rendimiento y arquitectura moderna. Implementación con generación estática e islas interactivas, cotizaciones en línea y diseño responsivo para insumos digitales y periféricos.",
+    collaboration: "En conjunto con Matías Dintrans",
+    description: "Plataforma de comercio electrónico y catálogo tecnológico para insumos digitales y periféricos. Desarrollada en conjunto con Matías Dintrans, cuenta con arquitectura de alto rendimiento en Astro, componentes interactivos e infraestructura en Render.",
     liveUrl: "https://rapidassure.onrender.com",
     repoUrl: "https://github.com/felipooon/rapidassure"
   },
