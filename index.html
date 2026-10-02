@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Felipe Godoy Pérez — Registro Técnico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf7f2;
+      --surface: #f3eee5;
+      --text: #1a1714;
+      --text-muted: #6e675d;
+      --border: #dcd3c4;
+      --border-dark: #b5a995;
+      --accent: #8b3a22; /* Lacre / arcilla editorial */
+      --font-serif: 'Newsreader', Georgia, serif;
+      --font-title: 'Cinzel', serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      padding: 4.5rem 1.5rem;
+      background-image: radial-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 0);
+      background-size: 20px 20px;
+    }
+
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    /* Cabecera */
+    header {
+      margin-bottom: 3.5rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 2px solid var(--text);
+    }
+
+    .meta-top {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.35rem;
+    }
+
+    h1 {
+      font-family: var(--font-title);
+      font-size: 2.1rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      line-height: 1.15;
+      margin-bottom: 0.4rem;
+    }
+
+    .role-title {
+      font-size: 1.08rem;
+      font-style: italic;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .intro-text {
+      font-size: 1.02rem;
+      color: #302b25;
+      max-width: 720px;
+    }
+
+    /* Encabezados de sección */
+    section {
+      margin-bottom: 4rem;
+    }
+
+    .section-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid var(--border-dark);
+      padding-bottom: 0.4rem;
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      font-family: var(--font-title);
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .folio-num {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* Grid de tarjetas compactas */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.75rem;
+    }
+
+    .plate-card {
+      background: #fdfbf7;
+      border: 1px solid var(--border-dark);
+      padding: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.03);
+      transition: border-color 0.2s ease, transform 0.15s ease;
+    }
+
+    .plate-card:hover {
+      border-color: var(--text);
+      transform: translateY(-2px);
+    }
+
+    /* Miniatura real del sitio */
+    .plate-thumb-wrapper {
+      position: relative;
+      width: 100%;
+      height: 140px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+    }
+
+    .plate-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      filter: contrast(98%) brightness(99%);
+      display: block;
+      transition: filter 0.2s ease, transform 0.2s ease;
+    }
+
+    .plate-card:hover .plate-thumb {
+      transform: scale(1.02);
+    }
+
+    .plate-legend {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .card-title {
+      font-family: var(--font-title);
+      font-size: 1.08rem;
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+
+    .card-summary {
+      font-size: 0.92rem;
+      color: #423d35;
+      line-height: 1.5;
+      margin-bottom: 1.1rem;
+      flex-grow: 1;
+    }
+
+    .card-actions {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px dashed var(--border);
+      padding-top: 0.6rem;
+      margin-top: auto;
+    }
+
+    .card-actions a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid currentColor;
+      padding-bottom: 1px;
+    }
+
+    .card-actions a.source-link {
+      color: var(--text-muted);
+      border-bottom-color: var(--border-dark);
+    }
+
+    .card-actions a:hover {
+      opacity: 0.7;
+    }
+
+    /* Sección inferior: Registros complementarios */
+    .record-index {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .record-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 1.5rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .record-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .record-meta h3 {
+      font-size: 1.05rem;
+      font-weight: 500;
+    }
+
+    .record-meta h3 a {
+      color: var(--text);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .record-sub {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .record-desc {
+      font-size: 0.94rem;
+      color: #454038;
+      line-height: 1.6;
+    }
+
+    /* Colofón */
+    footer {
+      border-top: 2px solid var(--text);
+      padding-top: 1.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    footer a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    @media (max-width: 680px) {
+      body { padding: 3rem 1.2rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .record-row { grid-template-columns: 1fr; gap: 0.4rem; }
+      footer { flex-direction: column; gap: 0.8rem; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <header>
+      <div class="meta-top">
+        <span>Registro Técnico &bull; Proyectos</span>
+        <span>Puerto Montt, CL &bull; 41°28′ S</span>
+      </div>
+      <h1>Felipe Godoy Pérez</h1>
+      <p class="role-title">Desarrollador Web, Backend &amp; Sistemas de Terreno</p>
+      <p class="intro-text">
+        Desarrollo de arquitecturas backend modulares, plataformas de comercio electrónico, cartografía interactiva en tiempo real e instrumentación para bioacústica y monitoreo ambiental.
+      </p>
+    </header>
+
+    <!-- PROYECTOS PRINCIPALES CON CAPTURA REAL Y TARJETAS PEQUEÑAS -->
+    <section>
+      <div class="section-bar">
+        <h2>Planchas Principales</h2>
+        <span class="folio-num">[ Folio 01 &ndash; 04 ]</span>
+      </div>
+
+      <div class="cards-grid">
+
+        <!-- CARD 1: RAPIDASSURE -->
+        <article class="plate-card">
+          <div class="plate-thumb-wrapper">
+            <img class="plate-thumb" 
+                 src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Frapidassure.onrender.com?w=800" 
+                 alt="Captura de rapidassure.onrender.com" 
+                 loading="lazy">
+          </div>
+          <div class="plate-legend">
+            <span>FIG. I</span>
+            <span>Render Cloud</span>
+          </div>
+          <h3 class="card-title">Rapidassure</h3>
+          <p class="card-summary">
+            Catálogo web y plataforma tecnológica con arquitectura en Render y gestión de catálogo digital.
+          </p>
+          <div class="card-actions">
+            <a href="https://rapidassure.onrender.com" target="_blank" rel="noopener">rapidassure.onrender.com &rarr;</a>
+            <a href="https://github.com/felipooon/rapidassure" target="_blank" rel="noopener" class="source-link">Git</a>
+          </div>
+        </article>
+
+        <!-- CARD 2: RARA TIENDA -->
+        <article class="plate-card">
+          <div class="plate-thumb-wrapper">
+            <img class="plate-thumb" 
+                 src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fraratienda.cl?w=800" 
+                 alt="Captura de raratienda.cl" 
+                 loading="lazy">
+          </div>
+          <div class="plate-legend">
+            <span>FIG. II</span>
+            <span>E-Commerce</span>
+          </div>
+          <h3 class="card-title">Rara Tienda</h3>
+          <p class="card-summary">
+            Tienda en línea completa con panel de administración propio para gestión de stock, inventario y despacho.
+          </p>
+          <div class="card-actions">
+            <a href="https://raratienda.cl" target="_blank" rel="noopener">raratienda.cl &rarr;</a>
+            <a href="https://github.com/felipooon/rara-app" target="_blank" rel="noopener" class="source-link">Git</a>
+          </div>
+        </article>
+
+        <!-- CARD 3: LEPIGAMES -->
+        <article class="plate-card">
+          <div class="plate-thumb-wrapper">
+            <img class="plate-thumb" 
+                 src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Flepigames.cl?w=800" 
+                 alt="Captura de lepigames.cl" 
+                 loading="lazy">
+          </div>
+          <div class="plate-legend">
+            <span>FIG. III</span>
+            <span>Juegos &amp; Cartas</span>
+          </div>
+          <h3 class="card-title">Lepigames</h3>
+          <p class="card-summary">
+            Sitio web enfocado en el catálogo lúdico, coleccionismo de cartas y experiencias interactivas en línea.
+          </p>
+          <div class="card-actions">
+            <a href="https://lepigames.cl" target="_blank" rel="noopener">lepigames.cl &rarr;</a>
+            <a href="https://github.com/felipooon/Lepigames" target="_blank" rel="noopener" class="source-link">Git</a>
+          </div>
+        </article>
+
+        <!-- CARD 4: GBDMAP / RADAR REALTIME -->
+        <article class="plate-card">
+          <div class="plate-thumb-wrapper">
+            <img class="plate-thumb" 
+                 src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fraratienda.cl%2Fjuegos%2Fradar-realtime%2F?w=800" 
+                 alt="Captura de radar-realtime" 
+                 loading="lazy">
+          </div>
+          <div class="plate-legend">
+            <span>FIG. IV</span>
+            <span>Cartografía</span>
+          </div>
+          <h3 class="card-title">GBDMap / Radar</h3>
+          <p class="card-summary">
+            Módulo cartográfico y radar en tiempo real para interacción geoespacial y visualización sobre el mapa.
+          </p>
+          <div class="card-actions">
+            <a href="https://raratienda.cl/juegos/radar-realtime/" target="_blank" rel="noopener">Abrir Radar &rarr;</a>
+            <a href="https://github.com/felipooon/gbdmap" target="_blank" rel="noopener" class="source-link">Git</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ARCHIVO TÉCNICO Y OTROS DESARROLLOS -->
+    <section>
+      <div class="section-bar">
+        <h2>Archivo de Desarrollos</h2>
+        <span class="folio-num">[ Folio 05 ]</span>
+      </div>
+
+      <div class="record-index">
+
+        <div class="record-row">
+          <div class="record-meta">
+            <h3><a href="https://github.com/felipooon/agenda-clinica" target="_blank" rel="noopener">Agenda Clínica</a></h3>
+            <div class="record-sub">Django &bull; Multi-tenant</div>
+          </div>
+          <p class="record-desc">
+            Sistema de reservas médicas con roles segmentados por facultativo, visualización dinámica de citas y panel de administración clínica.
+          </p>
+        </div>
+
+        <div class="record-row">
+          <div class="record-meta">
+            <h3>Bioacústica Autónoma</h3>
+            <div class="record-sub">Pico &bull; MicroPython</div>
+          </div>
+          <p class="record-desc">
+            Hardware programado para monitoreo pasivo de fauna y registro sonoro de avifauna con micrófonos MEMS y temporizador RTC de ultra bajo consumo.
+          </p>
+        </div>
+
+        <div class="record-row">
+          <div class="record-meta">
+            <h3>Monitoreo Solar 4G</h3>
+            <div class="record-sub">IoT &bull; Fauna Marina</div>
+          </div>
+          <p class="record-desc">
+            Estaciones autónomas de fotomonitoreo en acantilados con enlace celular para investigación y censos de aves costeras.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PIE DE PÁGINA -->
+    <footer>
+      <span>&copy; Felipe Godoy Pérez &mdash; Catálogo Personal</span>
+      <div>
+        <a href="https://github.com/felipooon" target="_blank" rel="noopener">github.com/felipooon</a>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>
