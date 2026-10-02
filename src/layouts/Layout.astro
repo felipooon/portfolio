@@ -1,0 +1,115 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Felipe Godoy Pérez — Catálogo Técnico & Portafolio Editorial",
+  description = "Portafolio editorial de Felipe Godoy Pérez: arquitecturas web, e-commerce, cartografía en tiempo real y desarrollos técnicos."
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>§</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="container">
+    <slot />
+  </div>
+</body>
+</html>
+
+<style is:global>
+  :root {
+    --bg: #f9f8f6;
+    --surface: #f3efe8;
+    --surface-matte: #ede7dc;
+    --text: #1a1714;
+    --text-soft: #38322a;
+    --text-muted: #6e675d;
+    --border: #dfd7c9;
+    --border-dark: #b5a894;
+    --accent: #8b3a22; /* Arcilla / lacre tipográfico */
+    --accent-hover: #5d2515;
+    --font-serif: 'Newsreader', Georgia, serif;
+    --font-title: 'Cinzel', serif;
+    --font-mono: 'Space Mono', monospace;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-serif);
+    font-size: 1.06rem;
+    line-height: 1.72;
+    padding: 4.5rem 1.75rem;
+    background-image: radial-gradient(rgba(30, 25, 20, 0.04) 1px, transparent 0);
+    background-size: 22px 22px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Encabezados de sección tipo lámina */
+  section {
+    margin-bottom: 4.5rem;
+  }
+
+  .section-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--border-dark);
+    padding-bottom: 0.5rem;
+    margin-bottom: 2.25rem;
+  }
+
+  h2 {
+    font-family: var(--font-title);
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  h2::before {
+    content: "§";
+    color: var(--accent);
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: normal;
+  }
+
+  .folio-num {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+
+  @media (max-width: 768px) {
+    body { padding: 3rem 1.25rem; font-size: 1rem; }
+  }
+</style>

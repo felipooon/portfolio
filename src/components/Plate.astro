@@ -1,0 +1,235 @@
+---
+import type { VisualPlate } from '../data/projects';
+
+interface Props {
+  plate: VisualPlate;
+}
+
+const { plate } = Astro.props;
+---
+
+<article class="editorial-plate">
+  <div 
+    class="plate-matte" 
+    data-lightbox-src={plate.imagePng}
+    data-lightbox-title={`${plate.fig}: ${plate.title} (${plate.domain})`}
+    data-lightbox-url={plate.liveUrl}
+    tabindex="0"
+    role="button"
+    aria-label={`Inspeccionar lámina de ${plate.title}`}
+  >
+    <div class="plate-viewport">
+      <picture>
+        <source srcset={plate.imageWebp} type="image/webp" />
+        <img 
+          class="plate-img" 
+          src={plate.imagePng} 
+          alt={plate.alt} 
+          loading="lazy" 
+        />
+      </picture>
+      <div class="plate-badge-zoom">Inspeccionar &oplus;</div>
+    </div>
+  </div>
+
+  <div class="plate-caption">
+    <div class="plate-header-row">
+      <span class="fig-number">{plate.fig} &mdash; {plate.category}</span>
+      <span class="plate-domain">{plate.domain}</span>
+    </div>
+    <h3 class="plate-title">{plate.title}</h3>
+    <div class="plate-tech">
+      {plate.tech.map((t) => (
+        <span>{t}</span>
+      ))}
+    </div>
+    <p class="plate-desc">{plate.description}</p>
+    <div class="plate-links">
+      <a href={plate.liveUrl} target="_blank" rel="noopener">{plate.domain} &rarr;</a>
+      <a href={plate.repoUrl} target="_blank" rel="noopener" class="source-link">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</article>
+
+<style>
+  .editorial-plate {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .plate-matte {
+    background: var(--surface-matte);
+    border: 1px solid var(--border-dark);
+    padding: 0.65rem;
+    position: relative;
+    cursor: zoom-in;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .plate-matte::before {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    pointer-events: none;
+  }
+
+  .plate-matte:hover, .plate-matte:focus-visible {
+    border-color: var(--text);
+    box-shadow: 0 4px 16px rgba(40, 30, 20, 0.08);
+    outline: none;
+  }
+
+  .plate-viewport {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background: #000;
+    border: 1px solid var(--border-dark);
+  }
+
+  .plate-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    filter: contrast(98%) brightness(98%);
+    transition: transform 0.35s cubic-bezier(0.2, 0, 0.2, 1), filter 0.25s ease;
+  }
+
+  .plate-matte:hover .plate-img {
+    transform: scale(1.025);
+    filter: contrast(100%) brightness(100%);
+  }
+
+  .plate-badge-zoom {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    background: rgba(26, 23, 20, 0.82);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    padding: 0.2rem 0.45rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    backdrop-filter: blur(2px);
+  }
+
+  .plate-matte:hover .plate-badge-zoom,
+  .plate-matte:focus-visible .plate-badge-zoom {
+    opacity: 1;
+  }
+
+  .plate-caption {
+    margin-top: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .plate-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.35rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .fig-number {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+
+  .plate-domain {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+  }
+
+  .plate-title {
+    font-family: var(--font-title);
+    font-size: 1.18rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+  }
+
+  .plate-tech {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-bottom: 0.65rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .plate-tech span {
+    background: rgba(223, 215, 201, 0.4);
+    padding: 0.05rem 0.35rem;
+    border: 1px solid var(--border);
+  }
+
+  .plate-desc {
+    font-size: 0.94rem;
+    color: var(--text-soft);
+    line-height: 1.55;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+  }
+
+  .plate-links {
+    font-family: var(--font-mono);
+    font-size: 0.73rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px dashed var(--border);
+    padding-top: 0.6rem;
+    margin-top: auto;
+  }
+
+  .plate-links a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .plate-links a.source-link {
+    color: var(--text-muted);
+    border-bottom-color: var(--border-dark);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .plate-links a:hover {
+    color: var(--accent-hover);
+    border-bottom-color: var(--accent-hover);
+  }
+
+  .plate-links a.source-link:hover {
+    color: var(--text);
+    border-bottom-color: var(--text);
+  }
+
+  @media (max-width: 768px) {
+    .plate-viewport { height: 200px; }
+  }
+</style>

@@ -1,0 +1,83 @@
+---
+---
+
+<header>
+  <div class="meta-top">
+    <span>Registro Técnico &bull; Desarrollos de Software</span>
+    <span>
+      <span class="meta-pill">Edición 2026</span>
+      Puerto Montt, CL &bull; 41°28′ S
+    </span>
+  </div>
+  <h1>Felipe Godoy Pérez</h1>
+  <p class="role-title">Ingeniería Web, Arquitectura Backend &amp; Sistemas de Campo</p>
+  <p class="intro-text">
+    Compilación de sistemas en producción y arquitecturas de software: aplicaciones de comercio digital, plataformas reactivas con Astro y Django, módulos cartográficos de telemetría geoespacial en tiempo real, e integración de hardware pasivo para bioacústica y monitoreo ambiental.
+  </p>
+</header>
+
+<style>
+  header {
+    margin-bottom: 4rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--text);
+  }
+
+  .meta-top {
+    font-family: var(--font-mono);
+    font-size: 0.73rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.45rem;
+  }
+
+  .meta-top span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .meta-pill {
+    font-size: 0.65rem;
+    border: 1px solid var(--border-dark);
+    padding: 0.1rem 0.45rem;
+    background: rgba(255, 255, 255, 0.4);
+  }
+
+  h1 {
+    font-family: var(--font-title);
+    font-size: 2.35rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    line-height: 1.15;
+    margin-bottom: 0.35rem;
+    color: var(--text);
+  }
+
+  .role-title {
+    font-size: 1.12rem;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 1.35rem;
+    letter-spacing: 0.01em;
+  }
+
+  .intro-text {
+    font-size: 1.05rem;
+    color: var(--text-soft);
+    max-width: 780px;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  @media (max-width: 768px) {
+    h1 { font-size: 1.85rem; }
+    .meta-top { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+  }
+</style>

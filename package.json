@@ -1,0 +1,30 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Portafolio editorial y catálogo técnico de Felipe Godoy Pérez",
+  "scripts": {
+    "dev": "astro dev --host",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felipooon/portfolio.git"
+  },
+  "keywords": [
+    "portfolio",
+    "astro",
+    "editorial",
+    "felipe-godoy"
+  ],
+  "author": "Felipe Godoy Pérez",
+  "license": "MIT",
+  "dependencies": {
+    "astro": "^5.2.4"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}
