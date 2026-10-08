@@ -32,7 +32,7 @@ export const VISUAL_PLATES: VisualPlate[] = [
     fig: "FIG. 01",
     category: "E-COMMERCE",
     categoryKey: "web",
-    domain: "rapidassure.onrender.com",
+    domain: "rapidassure.cl",
     title: "RapidAssure Retail",
     imagePng: "assets/screenshots/rapidassure.png",
     imageWebp: "assets/screenshots/rapidassure.webp",
@@ -40,7 +40,7 @@ export const VISUAL_PLATES: VisualPlate[] = [
     tech: ["Astro", "Tailwind CSS", "Vite", "Render Cloud"],
     collaboration: "En conjunto con Matías Dintrans",
     description: "Plataforma de comercio electrónico y catálogo tecnológico para insumos digitales y periféricos. Desarrollada en conjunto con Matías Dintrans, cuenta con arquitectura de alto rendimiento en Astro, componentes interactivos e infraestructura en Render.",
-    liveUrl: "https://rapidassure.onrender.com",
+    liveUrl: "https://rapidassure.cl",
     repoUrl: "https://github.com/felipooon/rapidassure",
     statusBadge: "En Producción"
   },
