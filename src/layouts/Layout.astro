@@ -6,7 +6,7 @@ interface Props {
 
 const {
   title = "Felipe Godoy Pérez — Catálogo Técnico & Portafolio Editorial",
-  description = "Portafolio editorial de Felipe Godoy Pérez: arquitecturas web, e-commerce, cartografía en tiempo real y desarrollos técnicos."
+  description = "Portafolio editorial de Felipe Godoy Pérez: arquitecturas web, e-commerce, cartografía en tiempo real y sistemas de campo IoT."
 } = Astro.props;
 ---
 
@@ -21,11 +21,107 @@ const {
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  
+  <script is:inline>
+    (function() {
+      const storedTheme = localStorage.getItem('portfolio-theme');
+      if (storedTheme === 'dark' || (!storedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+    })();
+  </script>
 </head>
 <body>
+  <!-- BARRA DE NAVEGACIÓN SUPERIOR FIJA / REGISTRO RÁPIDO -->
+  <header class="top-nav-bar">
+    <div class="top-nav-inner">
+      <a href="#" class="nav-brand">
+        <span class="brand-glyph">§</span>
+        <span class="brand-text">Felipe Godoy Pérez</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#proyectos">Proyectos</a>
+        <a href="#competencias">Competencias</a>
+        <a href="#archivo">Archivo</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="theme-toggle-btn" class="nav-btn theme-btn" type="button" aria-label="Cambiar tema de color" title="Alternar tema editorial / nocturno">
+          <span class="theme-label-light">☾ Modo Carbón</span>
+          <span class="theme-label-dark">☼ Modo Papel</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
   <div class="container">
     <slot />
   </div>
+
+  <!-- TOAST DE COPIADO AL PORTAPAPELES -->
+  <div id="copy-toast" class="copy-toast" role="status" aria-live="polite">
+    <span class="toast-icon">✓</span>
+    <span id="toast-text">felipegp90@gmail.com copiado al portapapeles</span>
+  </div>
+
+  <script>
+    // Control de Modo Oscuro / Claro
+    function setupThemeToggle() {
+      const toggleBtn = document.getElementById('theme-toggle-btn');
+      if (!toggleBtn) return;
+
+      toggleBtn.addEventListener('click', () => {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+          document.documentElement.removeAttribute('data-theme');
+          localStorage.setItem('portfolio-theme', 'light');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem('portfolio-theme', 'dark');
+        }
+      });
+    }
+
+    // Sistema de feedback al copiar correo
+    function setupCopyEmail() {
+      const copyButtons = document.querySelectorAll('[data-copy-email]');
+      const toast = document.getElementById('copy-toast');
+      const toastText = document.getElementById('toast-text');
+      let timeoutId: number;
+
+      copyButtons.forEach((btn) => {
+        btn.addEventListener('click', async (e) => {
+          e.preventDefault();
+          const email = (btn as HTMLElement).dataset.copyEmail || 'felipegp90@gmail.com';
+          try {
+            await navigator.clipboard.writeText(email);
+            if (toast && toastText) {
+              toastText.textContent = `${email} copiado al portapapeles`;
+              toast.classList.add('show');
+              clearTimeout(timeoutId);
+              timeoutId = window.setTimeout(() => {
+                toast.classList.remove('show');
+              }, 3200);
+            }
+          } catch (err) {
+            // Fallback si clipboard API falla
+            window.location.href = `mailto:${email}`;
+          }
+        });
+      });
+    }
+
+    setupThemeToggle();
+    setupCopyEmail();
+    document.addEventListener('astro:page-load', () => {
+      setupThemeToggle();
+      setupCopyEmail();
+    });
+  </script>
 </body>
 </html>
 
@@ -41,9 +137,35 @@ const {
     --border-dark: #b5a894;
     --accent: #8b3a22; /* Arcilla / lacre tipográfico */
     --accent-hover: #5d2515;
+    --accent-rgb: 139, 58, 34;
+    --shadow-color: rgba(26, 23, 20, 0.08);
+    --badge-bg: rgba(255, 255, 255, 0.7);
+    --dot-color: rgba(30, 25, 20, 0.05);
+
     --font-serif: 'Newsreader', Georgia, serif;
     --font-title: 'Cinzel', serif;
     --font-mono: 'Space Mono', monospace;
+  }
+
+  [data-theme="dark"] {
+    --bg: #121110;
+    --surface: #191816;
+    --surface-matte: #22201d;
+    --text: #ede7dc;
+    --text-soft: #c8c0b2;
+    --text-muted: #8d8577;
+    --border: #2b2824;
+    --border-dark: #433e36;
+    --accent: #d86b50; /* Arcilla viva sobre fondo oscuro */
+    --accent-hover: #ea856c;
+    --accent-rgb: 216, 107, 80;
+    --shadow-color: rgba(0, 0, 0, 0.45);
+    --badge-bg: rgba(34, 32, 29, 0.85);
+    --dot-color: rgba(237, 231, 220, 0.035);
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   * {
@@ -58,20 +180,126 @@ const {
     font-family: var(--font-serif);
     font-size: 1.06rem;
     line-height: 1.72;
-    padding: 4.5rem 1.75rem;
-    background-image: radial-gradient(rgba(30, 25, 20, 0.04) 1px, transparent 0);
+    padding-top: 4.5rem;
+    padding-bottom: 5rem;
+    background-image: radial-gradient(var(--dot-color) 1px, transparent 0);
     background-size: 22px 22px;
     -webkit-font-smoothing: antialiased;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  /* BARRA DE NAVEGACIÓN SUPERIOR */
+  .top-nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+    transition: background-color 0.25s ease, border-color 0.25s ease;
+  }
+
+  .top-nav-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0.75rem 1.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--text);
+    font-family: var(--font-title);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+
+  .brand-glyph {
+    color: var(--accent);
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    position: relative;
+    padding-bottom: 2px;
+    transition: color 0.2s ease;
+  }
+
+  .nav-links a:hover {
+    color: var(--accent);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .nav-btn {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    padding: 0.35rem 0.7rem;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border-dark);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .nav-btn:hover {
+    background: var(--surface-matte);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .theme-label-dark {
+    display: none;
+  }
+
+  [data-theme="dark"] .theme-label-light {
+    display: none;
+  }
+
+  [data-theme="dark"] .theme-label-dark {
+    display: inline;
   }
 
   .container {
     max-width: 900px;
     margin: 0 auto;
+    padding: 2rem 1.75rem 0 1.75rem;
   }
 
   /* Encabezados de sección tipo lámina */
   section {
-    margin-bottom: 4.5rem;
+    margin-bottom: 5rem;
   }
 
   .section-bar {
@@ -92,6 +320,7 @@ const {
     display: flex;
     align-items: center;
     gap: 0.6rem;
+    color: var(--text);
   }
 
   h2::before {
@@ -109,7 +338,43 @@ const {
     letter-spacing: 0.06em;
   }
 
+  /* NOTIFICACIÓN TOAST */
+  .copy-toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--text);
+    color: var(--bg);
+    padding: 0.75rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    border: 1px solid var(--border-dark);
+    box-shadow: 0 8px 24px var(--shadow-color);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    z-index: 10000;
+    transform: translateY(150%);
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .copy-toast.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .toast-icon {
+    color: #4ade80;
+    font-weight: bold;
+  }
+
   @media (max-width: 768px) {
-    body { padding: 3rem 1.25rem; font-size: 1rem; }
+    body { padding-top: 4rem; padding-bottom: 3.5rem; font-size: 1rem; }
+    .container { padding: 1.5rem 1.25rem 0 1.25rem; }
+    .top-nav-inner { padding: 0.6rem 1.25rem; }
+    .nav-links { display: none; } /* En móvil se mantienen marca y botón tema */
+    .brand-text { font-size: 0.85rem; }
   }
 </style>

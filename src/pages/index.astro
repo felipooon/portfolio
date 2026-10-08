@@ -1,19 +1,27 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+import FilterBar from '../components/FilterBar.astro';
 import Plate from '../components/Plate.astro';
+import Skills from '../components/Skills.astro';
 import RecordEntry from '../components/RecordEntry.astro';
+import Contact from '../components/Contact.astro';
 import Lightbox from '../components/Lightbox.astro';
 import Footer from '../components/Footer.astro';
 import { VISUAL_PLATES, TECHNICAL_RECORDS } from '../data/projects';
+
+const totalRegistros = VISUAL_PLATES.length + TECHNICAL_RECORDS.length;
 ---
 
 <Layout>
   <!-- FRONTISPICIO & CABECERA EDITORIAL -->
   <Header />
 
+  <!-- FILTROS DE ARCHIVO Y CLASIFICACIÓN TÉCNICA -->
+  <FilterBar totalCount={totalRegistros} />
+
   <!-- PROYECTOS PRINCIPALES: VISTAS Y CAPTURAS REALES -->
-  <section>
+  <section id="proyectos" class="plates-section">
     <div class="section-bar">
       <h2>Proyectos &amp; Sistemas Principales</h2>
       <span class="folio-num">[ Folio 01 &ndash; 04 ]</span>
@@ -26,11 +34,14 @@ import { VISUAL_PLATES, TECHNICAL_RECORDS } from '../data/projects';
     </div>
   </section>
 
+  <!-- MATRIZ DE COMPETENCIAS & STACK TÉCNICO -->
+  <Skills />
+
   <!-- ARCHIVO TÉCNICO Y OTROS DESARROLLOS -->
-  <section>
+  <section id="archivo" class="records-section">
     <div class="section-bar">
       <h2>Archivo de Desarrollos Técnicos</h2>
-      <span class="folio-num">[ Folio 05 &ndash; 07 ]</span>
+      <span class="folio-num">[ Folio 06 &ndash; 07 ]</span>
     </div>
 
     <div class="record-index">
@@ -39,6 +50,9 @@ import { VISUAL_PLATES, TECHNICAL_RECORDS } from '../data/projects';
       ))}
     </div>
   </section>
+
+  <!-- CORRESPONDENCIA & CONTACTO DIRECTO -->
+  <Contact />
 
   <!-- COLOFÓN / PIE DE PÁGINA -->
   <Footer />

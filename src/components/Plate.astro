@@ -11,12 +11,16 @@ const webpUrl = `${baseUrl}${plate.imageWebp.replace(/^\//, '')}`;
 const pngUrl = `${baseUrl}${plate.imagePng.replace(/^\//, '')}`;
 ---
 
-<article class="editorial-plate">
+<article class="editorial-plate" data-category-key={plate.categoryKey}>
   <div 
     class="plate-matte" 
     data-lightbox-src={pngUrl}
-    data-lightbox-title={`${plate.fig}: ${plate.title} (${plate.domain})`}
+    data-lightbox-title={`${plate.fig}: ${plate.title}`}
+    data-lightbox-domain={plate.domain}
+    data-lightbox-desc={plate.description}
+    data-lightbox-tech={plate.tech.join(' • ')}
     data-lightbox-url={plate.liveUrl}
+    data-lightbox-repo={plate.repoUrl}
     tabindex="0"
     role="button"
     aria-label={`Inspeccionar captura de ${plate.title}`}
@@ -32,6 +36,7 @@ const pngUrl = `${baseUrl}${plate.imagePng.replace(/^\//, '')}`;
         />
       </picture>
       <div class="plate-badge-zoom">Inspeccionar &oplus;</div>
+      <span class="plate-status-badge">{plate.statusBadge}</span>
     </div>
   </div>
 
@@ -69,6 +74,7 @@ const pngUrl = `${baseUrl}${plate.imagePng.replace(/^\//, '')}`;
     display: flex;
     flex-direction: column;
     position: relative;
+    transition: opacity 0.25s ease, transform 0.25s ease;
   }
 
   .plate-matte {
@@ -77,20 +83,22 @@ const pngUrl = `${baseUrl}${plate.imagePng.replace(/^\//, '')}`;
     padding: 0.65rem;
     position: relative;
     cursor: zoom-in;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 8px var(--shadow-color);
   }
 
   .plate-matte::before {
     content: "";
     position: absolute;
     inset: 2px;
-    border: 1px solid rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     pointer-events: none;
   }
 
   .plate-matte:hover, .plate-matte:focus-visible {
-    border-color: var(--text);
-    box-shadow: 0 4px 16px rgba(40, 30, 20, 0.08);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--shadow-color);
     outline: none;
   }
 
@@ -110,33 +118,52 @@ const pngUrl = `${baseUrl}${plate.imagePng.replace(/^\//, '')}`;
     object-position: top center;
     display: block;
     filter: contrast(98%) brightness(98%);
-    transition: transform 0.35s cubic-bezier(0.2, 0, 0.2, 1), filter 0.25s ease;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
   }
 
   .plate-matte:hover .plate-img {
-    transform: scale(1.025);
-    filter: contrast(100%) brightness(100%);
+    transform: scale(1.04);
+    filter: contrast(102%) brightness(102%);
+  }
+
+  .plate-status-badge {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    background: rgba(18, 17, 16, 0.85);
+    color: #4ade80;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    padding: 0.15rem 0.45rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid rgba(74, 222, 128, 0.35);
+    backdrop-filter: blur(4px);
+    pointer-events: none;
   }
 
   .plate-badge-zoom {
     position: absolute;
     bottom: 0.5rem;
     right: 0.5rem;
-    background: rgba(26, 23, 20, 0.82);
+    background: rgba(18, 17, 16, 0.88);
     color: #fff;
     font-family: var(--font-mono);
     font-size: 0.62rem;
-    padding: 0.2rem 0.45rem;
-    letter-spacing: 0.05em;
+    padding: 0.2rem 0.5rem;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     opacity: 0;
-    transition: opacity 0.2s ease;
-    backdrop-filter: blur(2px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    transform: translateY(4px);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
   }
 
   .plate-matte:hover .plate-badge-zoom,
   .plate-matte:focus-visible .plate-badge-zoom {
     opacity: 1;
+    transform: translateY(0);
   }
 
   .plate-caption {
@@ -171,7 +198,7 @@ const pngUrl = `${baseUrl}${plate.imagePng.replace(/^\//, '')}`;
 
   .plate-title {
     font-family: var(--font-title);
-    font-size: 1.18rem;
+    font-size: 1.2rem;
     font-weight: 600;
     line-height: 1.25;
     color: var(--text);
@@ -188,8 +215,8 @@ const pngUrl = `${baseUrl}${plate.imagePng.replace(/^\//, '')}`;
 
   .collab-badge {
     display: inline-block;
-    background: rgba(139, 58, 34, 0.08);
-    border: 1px solid rgba(139, 58, 34, 0.25);
+    background: rgba(var(--accent-rgb), 0.08);
+    border: 1px solid rgba(var(--accent-rgb), 0.25);
     padding: 0.1rem 0.45rem;
   }
 
@@ -204,15 +231,16 @@ const pngUrl = `${baseUrl}${plate.imagePng.replace(/^\//, '')}`;
   }
 
   .plate-tech span {
-    background: rgba(223, 215, 201, 0.4);
-    padding: 0.05rem 0.35rem;
+    background: var(--surface);
+    padding: 0.08rem 0.4rem;
     border: 1px solid var(--border);
+    color: var(--text-soft);
   }
 
   .plate-desc {
     font-size: 0.94rem;
     color: var(--text-soft);
-    line-height: 1.55;
+    line-height: 1.6;
     margin-bottom: 1rem;
     flex-grow: 1;
   }
@@ -224,7 +252,7 @@ const pngUrl = `${baseUrl}${plate.imagePng.replace(/^\//, '')}`;
     justify-content: space-between;
     align-items: center;
     border-top: 1px dashed var(--border);
-    padding-top: 0.6rem;
+    padding-top: 0.65rem;
     margin-top: auto;
   }
 

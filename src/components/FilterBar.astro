@@ -1,0 +1,185 @@
+---
+interface Props {
+  totalCount?: number;
+}
+
+const { totalCount = 7 } = Astro.props;
+---
+
+<div class="archive-filter-bar" id="archive-filter-bar">
+  <div class="filter-header">
+    <span class="filter-label">§ Índice de Clasificación:</span>
+    <span class="filter-status" id="filter-counter-status">Mostrando {totalCount} registros</span>
+  </div>
+
+  <div class="filter-buttons" role="tablist" aria-label="Filtro de proyectos por especialidad">
+    <button class="filter-btn active" data-filter="all" type="button" role="tab" aria-selected="true">
+      <span class="filter-mark">&bull;</span> Todos <span class="filter-count">[{totalCount}]</span>
+    </button>
+    <button class="filter-btn" data-filter="web" type="button" role="tab" aria-selected="false">
+      <span class="filter-mark">&bull;</span> Web &amp; E-Commerce <span class="filter-count">[04]</span>
+    </button>
+    <button class="filter-btn" data-filter="data" type="button" role="tab" aria-selected="false">
+      <span class="filter-mark">&bull;</span> Cartografía &amp; APIs <span class="filter-count">[01]</span>
+    </button>
+    <button class="filter-btn" data-filter="iot" type="button" role="tab" aria-selected="false">
+      <span class="filter-mark">&bull;</span> IoT &amp; Hardware <span class="filter-count">[02]</span>
+    </button>
+  </div>
+</div>
+
+<script>
+  function setupFilterBar() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const counterStatus = document.getElementById('filter-counter-status');
+    const items = document.querySelectorAll<HTMLElement>('[data-category-key]');
+    const platesSection = document.getElementById('plates-section');
+    const recordsSection = document.getElementById('records-section');
+
+    if (!filterButtons.length) return;
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = (btn as HTMLElement).dataset.filter || 'all';
+
+        // Update active class
+        filterButtons.forEach((b) => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+
+        let visibleCount = 0;
+        let visiblePlates = 0;
+        let visibleRecords = 0;
+
+        items.forEach((item) => {
+          const itemKey = item.dataset.categoryKey;
+          const match = filter === 'all' || itemKey === filter;
+
+          if (match) {
+            item.style.display = '';
+            setTimeout(() => {
+              item.style.opacity = '1';
+              item.style.transform = 'translateY(0)';
+            }, 10);
+            visibleCount++;
+            if (item.classList.contains('editorial-plate')) visiblePlates++;
+            if (item.classList.contains('record-entry')) visibleRecords++;
+          } else {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(6px)';
+            setTimeout(() => {
+              if (item.style.opacity === '0') {
+                item.style.display = 'none';
+              }
+            }, 200);
+          }
+        });
+
+        // Hide/show section headers conditionally if no items match
+        if (platesSection) {
+          platesSection.style.display = (filter !== 'all' && visiblePlates === 0) ? 'none' : '';
+        }
+        if (recordsSection) {
+          recordsSection.style.display = (filter !== 'all' && visibleRecords === 0) ? 'none' : '';
+        }
+
+        if (counterStatus) {
+          counterStatus.textContent = `Mostrando ${visibleCount} de ${items.length} registros`;
+        }
+      });
+    });
+  }
+
+  setupFilterBar();
+  document.addEventListener('astro:page-load', setupFilterBar);
+</script>
+
+<style>
+  .archive-filter-bar {
+    background: var(--surface);
+    border: 1px solid var(--border-dark);
+    padding: 1rem 1.25rem;
+    margin-bottom: 3.5rem;
+    box-shadow: 0 4px 16px var(--shadow-color);
+  }
+
+  .filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+
+  .filter-label {
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-soft);
+  }
+
+  .filter-status {
+    color: var(--accent);
+  }
+
+  .filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .filter-btn {
+    font-family: var(--font-mono);
+    font-size: 0.73rem;
+    padding: 0.35rem 0.75rem;
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    transition: all 0.2s ease;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--surface-matte);
+  }
+
+  .filter-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .filter-btn.active .filter-mark {
+    color: #fff;
+  }
+
+  .filter-btn.active .filter-count {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .filter-mark {
+    color: var(--accent);
+    font-size: 1.1rem;
+    line-height: 0;
+  }
+
+  .filter-count {
+    color: var(--text-muted);
+    font-size: 0.68rem;
+  }
+
+  @media (max-width: 768px) {
+    .filter-buttons { flex-direction: column; }
+    .filter-btn { width: 100%; justify-content: space-between; }
+  }
+</style>
