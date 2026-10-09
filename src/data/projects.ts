@@ -112,15 +112,5 @@ export const TECHNICAL_RECORDS: TechnicalRecord[] = [
     description: "Grabadores autónomos de ultra bajo consumo energético para muestreo acústico pasivo (PAM) de avifauna y quirópteros en el bosque templado lluvioso. Equipados con micrófono MEMS digital, reloj en tiempo real (RTC) y esquemas de hibernación profunda alimentados por celda LiFePO4.",
     specs: ["Raspberry Pi Pico", "MicroPython", "I2S / MEMS Mic", "Sleep Power Mgmt"],
     statusBadge: "Hardware en Terreno"
-  },
-  {
-    title: "Monitoreo Solar 4G",
-    tagline: "IoT • Fauna Marina",
-    categoryKey: "iot",
-    repoLabel: "Red Remota IoT",
-    featured: false,
-    description: "Nodos de telemetría y fototrampeo montados en acantilados y costas del Seno de Reloncaví para el seguimiento de aves marinas y pingüinos de Magallanes. Integración con módem LTE celular y enlace MQTT para transmisión de métricas ambientales e imágenes comprimidas a servidor central.",
-    specs: ["ESP32 / LTE SIM7600", "MQTT / TLS", "Solar Harvesting", "Linux InfluxDB"],
-    statusBadge: "Red Remota IoT"
   }
 ];

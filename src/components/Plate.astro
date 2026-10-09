@@ -11,9 +11,20 @@ const webpUrl = `${baseUrl}${plate.imageWebp.replace(/^\//, '')}`;
 const pngUrl = `${baseUrl}${plate.imagePng.replace(/^\//, '')}`;
 ---
 
-<article class="editorial-plate" data-category-key={plate.categoryKey}>
+<article class="project-showcase-item editorial-plate" data-category-key={plate.categoryKey}>
+  <!-- CABECERA TÉCNICA DE LA PIEZA -->
+  <div class="item-meta-header">
+    <div class="meta-left">
+      <span class="meta-fig">{plate.fig}</span>
+      <span class="meta-separator">&bull;</span>
+      <span class="meta-category">{plate.category}</span>
+    </div>
+    <span class="meta-status">{plate.statusBadge}</span>
+  </div>
+
+  <!-- CAPTURA VISUAL REAL DEL SITIO -->
   <div 
-    class="plate-matte" 
+    class="item-media-frame"
     data-lightbox-src={pngUrl}
     data-lightbox-title={`${plate.fig}: ${plate.title}`}
     data-lightbox-domain={plate.domain}
@@ -23,266 +34,265 @@ const pngUrl = `${baseUrl}${plate.imagePng.replace(/^\//, '')}`;
     data-lightbox-repo={plate.repoUrl}
     tabindex="0"
     role="button"
-    aria-label={`Inspeccionar captura de ${plate.title}`}
+    aria-label={`Ver captura ampliada de ${plate.title}`}
   >
-    <div class="plate-viewport">
-      <picture>
-        <source srcset={webpUrl} type="image/webp" />
-        <img 
-          class="plate-img" 
-          src={pngUrl} 
-          alt={plate.alt} 
-          loading="lazy" 
-        />
-      </picture>
-      <div class="plate-badge-zoom">Inspeccionar &oplus;</div>
-      <span class="plate-status-badge">{plate.statusBadge}</span>
+    <picture>
+      <source srcset={webpUrl} type="image/webp" />
+      <img 
+        class="site-screenshot" 
+        src={pngUrl} 
+        alt={plate.alt} 
+        loading="lazy" 
+      />
+    </picture>
+    <div class="media-hover-overlay">
+      <span class="zoom-pill">Ampliar captura &oplus;</span>
     </div>
   </div>
 
-  <div class="plate-caption">
-    <div class="plate-header-row">
-      <span class="fig-number">{plate.fig} &mdash; {plate.category}</span>
-      <span class="plate-domain">{plate.domain}</span>
+  <!-- DESCRIPCIÓN & ENLACES -->
+  <div class="item-body">
+    <div class="title-row">
+      <h3 class="item-title">{plate.title}</h3>
+      <span class="item-domain">{plate.domain}</span>
     </div>
-    <h3 class="plate-title">{plate.title}</h3>
-    
+
     {plate.collaboration && (
-      <div class="plate-collab">
-        <span class="collab-badge">&sect; {plate.collaboration}</span>
+      <div class="collab-note">
+        <span>{plate.collaboration}</span>
       </div>
     )}
 
-    <div class="plate-tech">
+    <p class="item-desc">{plate.description}</p>
+
+    <div class="tech-stack-row">
       {plate.tech.map((t) => (
-        <span>{t}</span>
+        <span class="tech-tag">{t}</span>
       ))}
     </div>
-    <p class="plate-desc">{plate.description}</p>
-    <div class="plate-links">
-      <a href={plate.liveUrl} target="_blank" rel="noopener">{plate.domain} &rarr;</a>
-      <a href={plate.repoUrl} target="_blank" rel="noopener" class="source-link">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-        GitHub
+
+    <div class="item-actions">
+      <a href={plate.liveUrl} target="_blank" rel="noopener" class="action-link primary-action">
+        <span>Visitar sitio</span>
+        <span class="action-arrow">&rarr;</span>
+      </a>
+
+      <a href={plate.repoUrl} target="_blank" rel="noopener" class="action-link secondary-action">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>Código en GitHub</span>
       </a>
     </div>
   </div>
 </article>
 
 <style>
-  .editorial-plate {
+  .project-showcase-item {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+
+  .project-showcase-item:hover {
+    border-color: var(--border-strong);
+  }
+
+  .item-meta-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.65rem 1rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+
+  .meta-left {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--text-muted);
+  }
+
+  .meta-fig {
+    color: var(--text-soft);
+    font-weight: 700;
+  }
+
+  .meta-status {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+  }
+
+  .item-media-frame {
     position: relative;
-    transition: opacity 0.25s ease, transform 0.25s ease;
-  }
-
-  .plate-matte {
-    background: var(--surface-matte);
-    border: 1px solid var(--border-dark);
-    padding: 0.65rem;
-    position: relative;
-    cursor: zoom-in;
-    transition: all 0.25s ease;
-    box-shadow: 0 2px 8px var(--shadow-color);
-  }
-
-  .plate-matte::before {
-    content: "";
-    position: absolute;
-    inset: 2px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    pointer-events: none;
-  }
-
-  .plate-matte:hover, .plate-matte:focus-visible {
-    border-color: var(--accent);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px var(--shadow-color);
-    outline: none;
-  }
-
-  .plate-viewport {
-    position: relative;
-    width: 100%;
-    height: 220px;
+    aspect-ratio: 16 / 10;
     overflow: hidden;
     background: #000;
-    border: 1px solid var(--border-dark);
+    cursor: pointer;
   }
 
-  .plate-img {
+  .site-screenshot {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: top center;
+    object-position: top left;
     display: block;
-    filter: contrast(98%) brightness(98%);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
+    opacity: 0.94;
+    transition: opacity 0.2s ease, transform 0.3s ease;
   }
 
-  .plate-matte:hover .plate-img {
-    transform: scale(1.04);
-    filter: contrast(102%) brightness(102%);
-  }
-
-  .plate-status-badge {
-    position: absolute;
-    top: 0.5rem;
-    left: 0.5rem;
-    background: rgba(18, 17, 16, 0.85);
-    color: #4ade80;
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    padding: 0.15rem 0.45rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    border: 1px solid rgba(74, 222, 128, 0.35);
-    backdrop-filter: blur(4px);
-    pointer-events: none;
-  }
-
-  .plate-badge-zoom {
-    position: absolute;
-    bottom: 0.5rem;
-    right: 0.5rem;
-    background: rgba(18, 17, 16, 0.88);
-    color: #fff;
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    padding: 0.2rem 0.5rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    opacity: 0;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-    transform: translateY(4px);
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-  }
-
-  .plate-matte:hover .plate-badge-zoom,
-  .plate-matte:focus-visible .plate-badge-zoom {
+  .item-media-frame:hover .site-screenshot {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1.02);
   }
 
-  .plate-caption {
-    margin-top: 0.85rem;
+  .media-hover-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(16, 17, 20, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .item-media-frame:hover .media-hover-overlay {
+    opacity: 1;
+  }
+
+  .zoom-pill {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    background: var(--surface-card);
+    color: var(--text);
+    border: 1px solid var(--border-strong);
+    padding: 0.35rem 0.75rem;
+    border-radius: 3px;
+  }
+
+  .item-body {
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
   }
 
-  .plate-header-row {
+  .title-row {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 0.35rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .fig-number {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--accent);
-    font-weight: 700;
-    letter-spacing: 0.1em;
-  }
-
-  .plate-domain {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--text-muted);
-  }
-
-  .plate-title {
-    font-family: var(--font-title);
-    font-size: 1.2rem;
-    font-weight: 600;
-    line-height: 1.25;
-    color: var(--text);
-    margin-bottom: 0.25rem;
-  }
-
-  .plate-collab {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--accent);
-    margin-bottom: 0.45rem;
-    letter-spacing: 0.03em;
-  }
-
-  .collab-badge {
-    display: inline-block;
-    background: rgba(var(--accent-rgb), 0.08);
-    border: 1px solid rgba(var(--accent-rgb), 0.25);
-    padding: 0.1rem 0.45rem;
-  }
-
-  .plate-tech {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    margin-bottom: 0.65rem;
-    display: flex;
+    margin-bottom: 0.4rem;
+    gap: 1rem;
     flex-wrap: wrap;
-    gap: 0.4rem;
   }
 
-  .plate-tech span {
-    background: var(--surface);
-    padding: 0.08rem 0.4rem;
-    border: 1px solid var(--border);
-    color: var(--text-soft);
+  .item-title {
+    font-family: var(--font-serif);
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
   }
 
-  .plate-desc {
-    font-size: 0.94rem;
+  .item-domain {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .collab-note {
+    font-size: 0.82rem;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 0.85rem;
+  }
+
+  .item-desc {
+    font-size: 0.92rem;
+    line-height: 1.65;
     color: var(--text-soft);
-    line-height: 1.6;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
     flex-grow: 1;
   }
 
-  .plate-links {
-    font-family: var(--font-mono);
-    font-size: 0.73rem;
+  .tech-stack-row {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px dashed var(--border);
-    padding-top: 0.65rem;
-    margin-top: auto;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
   }
 
-  .plate-links a {
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px solid currentColor;
-    padding-bottom: 1px;
-    transition: color 0.15s ease, border-color 0.15s ease;
-  }
-
-  .plate-links a.source-link {
+  .tech-tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
     color: var(--text-muted);
-    border-bottom-color: var(--border-dark);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+  }
+
+  .item-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .action-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.3rem;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    text-decoration: none;
+    padding: 0.45rem 0.85rem;
+    border-radius: 3px;
+    transition: all 0.15s ease;
   }
 
-  .plate-links a:hover {
-    color: var(--accent-hover);
-    border-bottom-color: var(--accent-hover);
+  .primary-action {
+    background: var(--text);
+    color: var(--bg);
+    font-weight: 600;
+    border: 1px solid var(--text);
   }
 
-  .plate-links a.source-link:hover {
+  .primary-action:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff;
+  }
+
+  .secondary-action {
+    background: transparent;
+    color: var(--text-soft);
+    border: 1px solid var(--border);
+  }
+
+  .secondary-action:hover {
     color: var(--text);
-    border-bottom-color: var(--text);
+    border-color: var(--border-strong);
   }
 
-  @media (max-width: 768px) {
-    .plate-viewport { height: 200px; }
+  .action-arrow {
+    font-size: 0.95rem;
+    line-height: 1;
+  }
+
+  @media (max-width: 640px) {
+    .item-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .action-link {
+      justify-content: center;
+    }
   }
 </style>

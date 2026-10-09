@@ -2,34 +2,33 @@
 ---
 
 <div id="lightbox" class="lightbox-modal" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
-  <div class="lightbox-content">
-    <div class="lightbox-topbar">
-      <h3 id="lightbox-title">Vista de Inspección</h3>
-      <button class="lightbox-close" id="lightbox-close-btn" type="button" aria-label="Cerrar modal de inspección">
-        &times; Cerrar ESC
+  <div class="lightbox-dialog">
+    <div class="lightbox-head">
+      <div class="head-text">
+        <h3 id="lightbox-title">Detalle del proyecto</h3>
+        <span id="lightbox-domain-tag" class="domain-tag"></span>
+      </div>
+      <button class="lightbox-close-btn" id="lightbox-close-btn" type="button" aria-label="Cerrar ventana">
+        Cerrar [ESC]
       </button>
     </div>
 
-    <div class="lightbox-img-wrap">
-      <img id="lightbox-img" src="" alt="Captura ampliada del proyecto" />
+    <div class="lightbox-preview">
+      <img id="lightbox-img" src="" alt="Captura de pantalla del proyecto" />
     </div>
 
-    <div class="lightbox-details">
-      <p id="lightbox-desc" class="lightbox-desc"></p>
-      <div id="lightbox-tech" class="lightbox-tech-list"></div>
+    <div class="lightbox-meta">
+      <p id="lightbox-desc" class="lightbox-desc-text"></p>
+      <div id="lightbox-tech" class="lightbox-tech-text"></div>
     </div>
 
-    <div class="lightbox-footer">
-      <span id="lightbox-footnote">Archivo de imagen original &bull; Formato de alta resolución</span>
-      <div class="lightbox-actions">
-        <a id="lightbox-repo" href="#" target="_blank" rel="noopener" class="lightbox-btn-secondary">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          Repositorio
-        </a>
-        <a id="lightbox-link" href="#" target="_blank" rel="noopener" class="lightbox-btn-primary">
-          Visitar sitio oficial &rarr;
-        </a>
-      </div>
+    <div class="lightbox-foot">
+      <a id="lightbox-repo" href="#" target="_blank" rel="noopener" class="lightbox-action-link">
+        Ver código en GitHub &rarr;
+      </a>
+      <a id="lightbox-link" href="#" target="_blank" rel="noopener" class="lightbox-primary-btn">
+        Visitar sitio web oficial &rarr;
+      </a>
     </div>
   </div>
 </div>
@@ -38,171 +37,155 @@
   .lightbox-modal {
     position: fixed;
     inset: 0;
-    background: rgba(14, 12, 10, 0.88);
-    backdrop-filter: blur(8px);
-    z-index: 9999;
+    background: rgba(10, 11, 14, 0.85);
+    backdrop-filter: blur(6px);
+    z-index: 1000;
     display: none;
     align-items: center;
     justify-content: center;
-    padding: 2rem 1.5rem;
-    opacity: 0;
-    transition: opacity 0.25s ease;
+    padding: 1.5rem;
   }
 
   .lightbox-modal.active {
     display: flex;
-    opacity: 1;
   }
 
-  .lightbox-content {
+  .lightbox-dialog {
     background: var(--bg);
-    border: 1px solid var(--border-dark);
-    max-width: 980px;
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    max-width: 960px;
     width: 100%;
     max-height: 92vh;
     display: flex;
     flex-direction: column;
     padding: 1.5rem;
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
-    position: relative;
     overflow-y: auto;
   }
 
-  .lightbox-topbar {
+  .lightbox-head {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 0.75rem;
+    padding-bottom: 0.85rem;
     margin-bottom: 1rem;
-  }
-
-  .lightbox-tag {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    display: block;
-    margin-bottom: 0.2rem;
+    border-bottom: 1px solid var(--border);
+    gap: 1rem;
   }
 
   #lightbox-title {
-    font-family: var(--font-title);
-    font-size: 1.25rem;
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
     font-weight: 600;
     color: var(--text);
   }
 
-  .lightbox-close {
-    background: var(--surface);
-    border: 1px solid var(--border-dark);
-    padding: 0.35rem 0.75rem;
+  .domain-tag {
     font-family: var(--font-mono);
     font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .lightbox-close-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-soft);
+    padding: 0.35rem 0.65rem;
+    border-radius: 3px;
     cursor: pointer;
+  }
+
+  .lightbox-close-btn:hover {
     color: var(--text);
-    transition: all 0.15s ease;
+    border-color: var(--border-strong);
   }
 
-  .lightbox-close:hover {
-    background: var(--accent);
-    color: #fff;
-    border-color: var(--accent);
-  }
-
-  .lightbox-img-wrap {
-    width: 100%;
-    max-height: 52vh;
+  .lightbox-preview {
+    max-height: 55vh;
     overflow-y: auto;
-    border: 1px solid var(--border-dark);
-    background: #0d0c0b;
+    border: 1px solid var(--border);
+    background: #000;
     margin-bottom: 1rem;
   }
 
-  .lightbox-img-wrap img {
+  .lightbox-preview img {
     width: 100%;
     height: auto;
     display: block;
   }
 
-  .lightbox-details {
-    margin-bottom: 1rem;
-    padding: 0.75rem 1rem;
+  .lightbox-meta {
+    padding: 0.85rem 1rem;
     background: var(--surface);
     border: 1px solid var(--border);
+    border-radius: 3px;
+    margin-bottom: 1rem;
   }
 
-  .lightbox-desc {
-    font-size: 0.95rem;
-    color: var(--text-soft);
+  .lightbox-desc-text {
+    font-size: 0.92rem;
     line-height: 1.6;
-    margin-bottom: 0.65rem;
+    color: var(--text-soft);
+    margin-bottom: 0.4rem;
   }
 
-  .lightbox-tech-list {
+  .lightbox-tech-text {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.74rem;
     color: var(--text-muted);
   }
 
-  .lightbox-footer {
+  .lightbox-foot {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    border-top: 1px dashed var(--border);
+    border-top: 1px solid var(--border);
     padding-top: 0.85rem;
     flex-wrap: wrap;
     gap: 0.75rem;
   }
 
-  #lightbox-footnote {
-    color: var(--text-muted);
-    font-size: 0.7rem;
-  }
-
-  .lightbox-actions {
-    display: flex;
-    gap: 0.6rem;
-  }
-
-  .lightbox-btn-primary, .lightbox-btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.35rem 0.75rem;
-    font-size: 0.75rem;
+  .lightbox-action-link {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-soft);
     text-decoration: none;
-    border: 1px solid var(--border-dark);
-    transition: all 0.2s ease;
+    border-bottom: 1px solid var(--border);
   }
 
-  .lightbox-btn-primary {
-    background: var(--accent);
-    color: #fff;
-    border-color: var(--accent);
-  }
-
-  .lightbox-btn-primary:hover {
-    background: var(--accent-hover);
-  }
-
-  .lightbox-btn-secondary {
-    background: var(--surface);
+  .lightbox-action-link:hover {
     color: var(--text);
-  }
-
-  .lightbox-btn-secondary:hover {
-    background: var(--surface-matte);
     border-color: var(--text);
   }
 
-  @media (max-width: 680px) {
-    .lightbox-content { padding: 1rem; }
-    .lightbox-footer { flex-direction: column; align-items: stretch; }
-    .lightbox-actions { flex-direction: column; }
-    .lightbox-btn-primary, .lightbox-btn-secondary { justify-content: center; }
+  .lightbox-primary-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: var(--text);
+    color: var(--bg);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.45rem 0.95rem;
+    border-radius: 3px;
+  }
+
+  .lightbox-primary-btn:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  @media (max-width: 600px) {
+    .lightbox-foot {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .lightbox-primary-btn {
+      justify-content: center;
+    }
   }
 </style>
 
@@ -211,6 +194,7 @@
     const modal = document.getElementById('lightbox');
     const img = document.getElementById('lightbox-img') as HTMLImageElement | null;
     const titleElem = document.getElementById('lightbox-title');
+    const domainElem = document.getElementById('lightbox-domain-tag');
     const descElem = document.getElementById('lightbox-desc');
     const techElem = document.getElementById('lightbox-tech');
     const linkElem = document.getElementById('lightbox-link') as HTMLAnchorElement | null;
@@ -219,23 +203,20 @@
 
     if (!modal || !img || !titleElem) return;
 
-    function open(src: string, title: string, url: string, desc: string, tech: string, repo: string) {
+    function open(src: string, title: string, url: string, desc: string, tech: string, repo: string, domain: string) {
       if (!modal || !img || !titleElem) return;
       img.src = src;
       titleElem.textContent = title;
-
+      if (domainElem) domainElem.textContent = domain ? `[ ${domain} ]` : '';
       if (descElem) descElem.textContent = desc;
-      if (techElem) techElem.textContent = tech ? `Arquitectura & Stack: ${tech}` : '';
+      if (techElem) techElem.textContent = tech ? `Stack: ${tech}` : '';
 
-      if (linkElem) {
-        linkElem.href = url;
-        linkElem.textContent = 'Visitar ' + url.replace(/^https?:\/\//, '').replace(/\/$/, '') + ' \u2192';
-      }
+      if (linkElem) linkElem.href = url;
 
       if (repoElem) {
         if (repo) {
           repoElem.href = repo;
-          repoElem.style.display = 'inline-flex';
+          repoElem.style.display = 'inline-block';
         } else {
           repoElem.style.display = 'none';
         }
@@ -251,7 +232,6 @@
       document.body.style.overflow = '';
     }
 
-    // Attach click to all plate mattes
     document.querySelectorAll('[data-lightbox-src]').forEach((elem) => {
       const el = elem as HTMLElement;
       const src = el.dataset.lightboxSrc || '';
@@ -260,8 +240,9 @@
       const desc = el.dataset.lightboxDesc || '';
       const tech = el.dataset.lightboxTech || '';
       const repo = el.dataset.lightboxRepo || '';
+      const domain = el.dataset.lightboxDomain || '';
 
-      const handleOpen = () => open(src, title, url, desc, tech, repo);
+      const handleOpen = () => open(src, title, url, desc, tech, repo, domain);
       el.addEventListener('click', handleOpen);
       el.addEventListener('keydown', (e: KeyboardEvent) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -274,16 +255,11 @@
     closeBtn?.addEventListener('click', close);
 
     modal.addEventListener('click', (e) => {
-      const target = e.target as HTMLElement;
-      if (target === modal) {
-        close();
-      }
+      if (e.target === modal) close();
     });
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.classList.contains('active')) {
-        close();
-      }
+      if (e.key === 'Escape' && modal.classList.contains('active')) close();
     });
   }
 

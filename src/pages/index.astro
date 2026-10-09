@@ -14,70 +14,79 @@ const totalRegistros = VISUAL_PLATES.length + TECHNICAL_RECORDS.length;
 ---
 
 <Layout>
-  <!-- FRONTISPICIO & CABECERA EDITORIAL -->
+  <!-- INTRODUCCIÓN PRINCIPAL -->
   <Header />
 
-  <!-- FILTROS DE ARCHIVO Y CLASIFICACIÓN TÉCNICA -->
-  <FilterBar totalCount={totalRegistros} />
-
-  <!-- PROYECTOS PRINCIPALES: VISTAS Y CAPTURAS REALES -->
-  <section id="proyectos" class="plates-section">
-    <div class="section-bar">
-      <h2>Proyectos &amp; Sistemas Principales</h2>
-      <span class="folio-num">[ Folio 01 &ndash; 04 ]</span>
+  <!-- PROYECTOS PRINCIPALES CON CAPTURAS Y DETALLE -->
+  <section id="proyectos" class="projects-section">
+    <div class="section-label-bar">
+      <h2 class="section-heading">Proyectos Desarrollados</h2>
+      <span class="section-meta-id">[ Selección de Software ]</span>
     </div>
 
-    <div class="plates-grid">
+    <!-- FILTRO DE PROYECTOS -->
+    <FilterBar totalCount={totalRegistros} />
+
+    <!-- GRID DE PROYECTOS -->
+    <div class="projects-grid">
       {VISUAL_PLATES.map((plate) => (
         <Plate plate={plate} />
       ))}
     </div>
   </section>
 
-  <!-- MATRIZ DE COMPETENCIAS & STACK TÉCNICO -->
+  <!-- MATRIZ DE COMPETENCIAS TÉCNICAS -->
   <Skills />
 
-  <!-- ARCHIVO TÉCNICO Y OTROS DESARROLLOS -->
-  <section id="archivo" class="records-section">
-    <div class="section-bar">
-      <h2>Archivo de Desarrollos Técnicos</h2>
-      <span class="folio-num">[ Folio 06 &ndash; 07 ]</span>
+  <!-- ARCHIVO TÉCNICO Y SISTEMAS ADICIONALES -->
+  <section id="archivo" class="archive-section">
+    <div class="section-label-bar">
+      <h2 class="section-heading">Archivo de Desarrollos Técnicos</h2>
+      <span class="section-meta-id">[ Sistemas &amp; Firmware ]</span>
     </div>
 
-    <div class="record-index">
+    <div class="records-stack">
       {TECHNICAL_RECORDS.map((record) => (
         <RecordEntry record={record} />
       ))}
     </div>
   </section>
 
-  <!-- CORRESPONDENCIA & CONTACTO DIRECTO -->
+  <!-- FORMULARIO & SECCIÓN DE CONTACTO -->
   <Contact />
 
-  <!-- COLOFÓN / PIE DE PÁGINA -->
+  <!-- PIE DE PÁGINA -->
   <Footer />
 
-  <!-- VISOR DE LÁMINAS / LIGHTBOX -->
+  <!-- VISOR DE CAPTURAS -->
   <Lightbox />
 </Layout>
 
 <style>
-  .plates-grid {
+  .projects-section {
+    margin-bottom: 5.5rem;
+  }
+
+  .projects-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 2.5rem 2rem;
+    gap: 2rem;
   }
 
-  .record-index {
+  .archive-section {
+    margin-bottom: 5.5rem;
+  }
+
+  .records-stack {
     display: flex;
     flex-direction: column;
-    gap: 1.75rem;
+    gap: 1.25rem;
   }
 
-  @media (max-width: 768px) {
-    .plates-grid {
+  @media (max-width: 800px) {
+    .projects-grid {
       grid-template-columns: 1fr;
-      gap: 2.25rem;
+      gap: 1.75rem;
     }
   }
 </style>

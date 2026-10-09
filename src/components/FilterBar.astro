@@ -3,22 +3,22 @@ interface Props {
   totalCount?: number;
 }
 
-const { totalCount = 7 } = Astro.props;
+const { totalCount = 6 } = Astro.props;
 ---
 
-<div class="archive-filter-bar">
-  <span class="filter-caption">Filtrar:</span>
-  <div class="filter-buttons" role="tablist" aria-label="Filtro de proyectos">
-    <button class="filter-btn active" data-filter="all" type="button" role="tab" aria-selected="true">
+<div class="filter-strip">
+  <span class="filter-label">Filtrar por área:</span>
+  <div class="filter-tabs" role="tablist">
+    <button class="filter-tab-item active" data-filter="all" type="button" role="tab" aria-selected="true">
       Todos
     </button>
-    <button class="filter-btn" data-filter="web" type="button" role="tab" aria-selected="false">
+    <button class="filter-tab-item" data-filter="web" type="button" role="tab" aria-selected="false">
       Web &amp; E-Commerce
     </button>
-    <button class="filter-btn" data-filter="data" type="button" role="tab" aria-selected="false">
+    <button class="filter-tab-item" data-filter="data" type="button" role="tab" aria-selected="false">
       Cartografía
     </button>
-    <button class="filter-btn" data-filter="iot" type="button" role="tab" aria-selected="false">
+    <button class="filter-tab-item" data-filter="iot" type="button" role="tab" aria-selected="false">
       Hardware &amp; IoT
     </button>
   </div>
@@ -26,23 +26,23 @@ const { totalCount = 7 } = Astro.props;
 
 <script>
   function setupFilterBar() {
-    const filterButtons = document.querySelectorAll('.filter-btn');
+    const filterTabs = document.querySelectorAll('.filter-tab-item');
     const items = document.querySelectorAll<HTMLElement>('[data-category-key]');
     const platesSection = document.getElementById('proyectos');
     const recordsSection = document.getElementById('archivo');
 
-    if (!filterButtons.length) return;
+    if (!filterTabs.length) return;
 
-    filterButtons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const filter = (btn as HTMLElement).dataset.filter || 'all';
+    filterTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const filter = (tab as HTMLElement).dataset.filter || 'all';
 
-        filterButtons.forEach((b) => {
-          b.classList.remove('active');
-          b.setAttribute('aria-selected', 'false');
+        filterTabs.forEach((t) => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
         });
-        btn.classList.add('active');
-        btn.setAttribute('aria-selected', 'true');
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
 
         let visiblePlates = 0;
         let visibleRecords = 0;
@@ -53,23 +53,15 @@ const { totalCount = 7 } = Astro.props;
 
           if (match) {
             item.style.display = '';
-            item.style.opacity = '1';
-            item.style.transform = 'translateY(0)';
             if (item.classList.contains('editorial-plate')) visiblePlates++;
             if (item.classList.contains('record-entry')) visibleRecords++;
           } else {
-            item.style.opacity = '0';
-            item.style.transform = 'translateY(4px)';
             item.style.display = 'none';
           }
         });
 
-        if (platesSection) {
-          platesSection.style.display = (filter !== 'all' && visiblePlates === 0) ? 'none' : '';
-        }
-        if (recordsSection) {
-          recordsSection.style.display = (filter !== 'all' && visibleRecords === 0) ? 'none' : '';
-        }
+        if (platesSection) platesSection.style.display = visiblePlates > 0 ? '' : 'none';
+        if (recordsSection) recordsSection.style.display = visibleRecords > 0 ? '' : 'none';
       });
     });
   }
@@ -79,52 +71,47 @@ const { totalCount = 7 } = Astro.props;
 </script>
 
 <style>
-  .archive-filter-bar {
+  .filter-strip {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 2.75rem;
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
     flex-wrap: wrap;
-  }
-
-  .filter-caption {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    font-size: 0.8rem;
   }
 
-  .filter-buttons {
+  .filter-label {
+    color: var(--text-muted);
+  }
+
+  .filter-tabs {
     display: flex;
+    gap: 0.5rem;
     flex-wrap: wrap;
-    gap: 0.4rem;
   }
 
-  .filter-btn {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    padding: 0.25rem 0.65rem;
+  .filter-tab-item {
     background: transparent;
-    color: var(--text-muted);
     border: 1px solid var(--border);
+    color: var(--text-soft);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
     cursor: pointer;
     transition: all 0.15s ease;
   }
 
-  .filter-btn:hover {
+  .filter-tab-item:hover {
     color: var(--text);
-    border-color: var(--border-dark);
+    border-color: var(--border-strong);
   }
 
-  .filter-btn.active {
-    background: var(--text);
-    color: var(--bg);
+  .filter-tab-item.active {
+    background: var(--surface);
+    color: var(--text);
     border-color: var(--text);
-  }
-
-  @media (max-width: 600px) {
-    .filter-buttons { width: 100%; }
-    .filter-btn { flex: 1 1 auto; text-align: center; }
+    font-weight: 700;
   }
 </style>

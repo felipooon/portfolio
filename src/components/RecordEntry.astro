@@ -9,179 +9,174 @@ const { record } = Astro.props;
 ---
 
 <article 
-  class:list={["record-entry", { featured: record.featured }]} 
+  class:list={["record-item", "record-entry", { "featured-record": record.featured }]} 
   data-category-key={record.categoryKey}
 >
-  <div class="record-meta">
-    <div class="record-badge-row">
-      <span class="record-status-pill">{record.statusBadge}</span>
+  <div class="record-info">
+    <div class="record-meta-line">
+      <span class="record-tagline">{record.tagline}</span>
+      <span class="record-status">{record.statusBadge}</span>
     </div>
-    <h3>
+
+    <h3 class="record-name">
       {record.repoUrl ? (
-        <a href={record.repoUrl} target="_blank" rel="noopener">{record.title}</a>
+        <a href={record.repoUrl} target="_blank" rel="noopener">
+          {record.title}
+          <span class="link-arrow">&rarr;</span>
+        </a>
       ) : (
         record.title
       )}
     </h3>
-    <div class="record-tagline">{record.tagline}</div>
-    {record.repoUrl ? (
-      <a href={record.repoUrl} target="_blank" rel="noopener" class="record-repo-btn">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-        {record.repoLabel || "GitHub"} &rarr;
-      </a>
-    ) : (
-      <span class="record-badge-static">{record.repoLabel}</span>
-    )}
-  </div>
 
-  <div class="record-detail">
-    <p class="record-desc">{record.description}</p>
-    <div class="record-specs">
+    <p class="record-body">{record.description}</p>
+
+    <div class="specs-list">
       {record.specs.map((s) => (
-        <span class="spec-item">{s}</span>
+        <span class="spec-tag">{s}</span>
       ))}
     </div>
   </div>
+
+  {record.repoUrl && (
+    <div class="record-aside">
+      <a href={record.repoUrl} target="_blank" rel="noopener" class="repo-button">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>Repositorio</span>
+      </a>
+    </div>
+  )}
 </article>
 
 <style>
-  .record-entry {
-    display: grid;
-    grid-template-columns: 260px 1fr;
-    gap: 2.25rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px dashed var(--border-dark);
-    position: relative;
-    transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease;
-  }
-
-  .record-entry:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-
-  .record-badge-row {
-    margin-bottom: 0.4rem;
-  }
-
-  .record-status-pill {
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--accent);
-    background: var(--surface);
+  .record-item {
+    background: var(--surface-card);
     border: 1px solid var(--border);
-    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    padding: 1.5rem 1.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    transition: border-color 0.2s ease;
   }
 
-  .record-entry.featured {
-    background: var(--surface);
-    border-left: 3px solid var(--accent);
-    padding: 1.5rem 1.5rem 1.75rem 1.5rem;
-    border-bottom: 1px solid var(--border-dark);
-    box-shadow: 0 4px 16px var(--shadow-color);
+  .record-item:hover {
+    border-color: var(--border-strong);
   }
 
-  .record-meta h3 {
-    font-family: var(--font-title);
-    font-size: 1.18rem;
-    font-weight: 600;
-    line-height: 1.3;
-    margin-bottom: 0.35rem;
+  .featured-record {
+    border-left: 3px solid var(--text-soft);
   }
 
-  .record-meta h3 a {
-    color: var(--text);
-    text-decoration: none;
-    border-bottom: 1px solid var(--border-dark);
-    padding-bottom: 1px;
-    transition: color 0.15s ease, border-color 0.15s ease;
+  .record-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
   }
 
-  .record-meta h3 a:hover {
-    color: var(--accent);
-    border-color: var(--accent);
-  }
-
-  .record-tagline {
+  .record-meta-line {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     font-family: var(--font-mono);
     font-size: 0.72rem;
     color: var(--text-muted);
-    margin-bottom: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    margin-bottom: 0.35rem;
   }
 
-  .record-repo-btn {
+  .record-status {
+    color: var(--text-soft);
+  }
+
+  .record-name {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-bottom: 0.45rem;
+  }
+
+  .record-name a {
+    color: var(--text);
+    text-decoration: none;
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
+    transition: color 0.15s ease;
+  }
+
+  .record-name a:hover {
     color: var(--accent);
-    text-decoration: none;
-    border: 1px solid var(--border-dark);
-    padding: 0.3rem 0.65rem;
-    background: var(--bg);
-    transition: all 0.2s ease;
-    white-space: nowrap;
   }
 
-  .record-repo-btn:hover {
-    background: var(--surface-matte);
-    border-color: var(--accent);
-    color: var(--accent-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 3px 8px var(--shadow-color);
+  .link-arrow {
+    font-size: 1.1rem;
+    line-height: 1;
   }
 
-  .record-badge-static {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--text-muted);
-    border: 1px solid var(--border-dark);
-    padding: 0.25rem 0.55rem;
-    background: var(--bg);
-  }
-
-  .record-detail {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-
-  .record-desc {
-    font-size: 1rem;
+  .record-body {
+    font-size: 0.92rem;
     color: var(--text-soft);
-    line-height: 1.68;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    max-width: 800px;
   }
 
-  .record-specs {
+  .specs-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.35rem;
+    gap: 0.4rem;
   }
 
-  .spec-item {
+  .spec-tag {
     font-family: var(--font-mono);
     font-size: 0.7rem;
     color: var(--text-muted);
-    background: var(--bg);
+    background: var(--surface);
     border: 1px solid var(--border);
-    padding: 0.15rem 0.55rem;
-    transition: border-color 0.15s ease, color 0.15s ease;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
   }
 
-  .spec-item:hover {
-    border-color: var(--border-dark);
+  .record-aside {
+    flex-shrink: 0;
+  }
+
+  .repo-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: transparent;
+    color: var(--text-soft);
+    border: 1px solid var(--border);
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0.45rem 0.85rem;
+    border-radius: 3px;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+
+  .repo-button:hover {
     color: var(--text);
+    border-color: var(--border-strong);
+    background: var(--surface);
   }
 
   @media (max-width: 768px) {
-    .record-entry { grid-template-columns: 1fr; gap: 0.85rem; }
-    .record-entry.featured { padding: 1.25rem 1rem; }
+    .record-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.25rem;
+      padding: 1.25rem;
+    }
+    .record-aside {
+      width: 100%;
+    }
+    .repo-button {
+      width: 100%;
+      justify-content: center;
+    }
   }
 </style>

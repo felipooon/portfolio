@@ -1,37 +1,44 @@
 ---
-const STACK = [
+const SKILLS_DATA = [
   {
-    category: "Backend & Web",
-    items: ["Python", "Django", "Django REST Framework", "PostgreSQL", "SQLite"]
+    area: "Backend & Datos",
+    description: "Desarrollo de servicios, APIs y modelos relacionales",
+    tools: ["Python", "Django", "Django REST Framework", "PostgreSQL", "SQLite", "iCalendar (RFC 5545)", "xhtml2pdf"]
   },
   {
-    category: "Frontend & UI",
-    items: ["Astro", "TypeScript", "JavaScript", "HTML & CSS", "Tailwind CSS"]
+    area: "Frontend & UI",
+    description: "Arquitecturas web estáticas e interfaces interactivas",
+    tools: ["Astro", "TypeScript", "JavaScript", "HTML & CSS", "Tailwind CSS", "Leaflet JS"]
   },
   {
-    category: "Hardware & Terreno",
-    items: ["MicroPython", "Raspberry Pi Pico (RP2040)", "ESP32", "Sensores I2S / MEMS"]
+    area: "Hardware & Terreno",
+    description: "Sistemas embebidos y muestreo acústico pasivo (PAM)",
+    tools: ["MicroPython", "Raspberry Pi Pico (RP2040)", "ESP32", "Micrófonos MEMS / I2S", "LiFePO4 Power Mgmt"]
   },
   {
-    category: "Herramientas & Despliegue",
-    items: ["Linux", "Git & GitHub", "Nginx", "Render", "Vercel"]
+    area: "Entorno & Despliegue",
+    description: "Infraestructura, control de versiones y servidores",
+    tools: ["Linux VPS", "Git & GitHub", "Nginx", "Render Cloud", "Vercel", "SSH"]
   }
 ];
 ---
 
-<section id="competencias" class="skills-section">
-  <div class="section-bar">
-    <h2>Herramientas &amp; Tecnologías</h2>
-    <span class="folio-num">[ Folio 05 &ndash; Stack ]</span>
+<section id="tecnologias" class="skills-block">
+  <div class="section-label-bar">
+    <h2 class="section-heading">Tecnologías &amp; Herramientas</h2>
+    <span class="section-meta-id">[ Stack ]</span>
   </div>
 
-  <div class="skills-container">
-    {STACK.map((group) => (
-      <div class="skill-row">
-        <span class="skill-category">{group.category}</span>
-        <div class="skill-tags">
-          {group.items.map((item) => (
-            <span class="skill-tag">{item}</span>
+  <div class="skills-matrix">
+    {SKILLS_DATA.map((row) => (
+      <div class="matrix-row">
+        <div class="matrix-label-col">
+          <h3 class="area-name">{row.area}</h3>
+          <p class="area-desc">{row.description}</p>
+        </div>
+        <div class="matrix-tags-col">
+          {row.tools.map((item) => (
+            <span class="tool-chip">{item}</span>
           ))}
         </div>
       </div>
@@ -40,64 +47,72 @@ const STACK = [
 </section>
 
 <style>
-  .skills-section {
-    margin-bottom: 4.5rem;
+  .skills-block {
+    margin-bottom: 5.5rem;
   }
 
-  .skills-container {
+  .skills-matrix {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
-    background: var(--surface);
-    border: 1px solid var(--border-dark);
-    padding: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--surface-card);
   }
 
-  .skill-row {
+  .matrix-row {
     display: grid;
-    grid-template-columns: 200px 1fr;
-    align-items: baseline;
-    gap: 1.5rem;
-    padding-bottom: 1.1rem;
-    border-bottom: 1px dotted var(--border);
+    grid-template-columns: 280px 1fr;
+    gap: 2rem;
+    padding: 1.5rem 1.75rem;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
   }
 
-  .skill-row:last-child {
+  .matrix-row:last-child {
     border-bottom: none;
-    padding-bottom: 0;
   }
 
-  .skill-category {
-    font-family: var(--font-title);
-    font-size: 0.92rem;
+  .area-name {
+    font-family: var(--font-sans);
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text);
-    letter-spacing: 0.04em;
+    margin-bottom: 0.2rem;
   }
 
-  .skill-tags {
+  .area-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .matrix-tags-col {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.45rem;
+    gap: 0.5rem;
   }
 
-  .skill-tag {
+  .tool-chip {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.76rem;
     color: var(--text-soft);
-    background: var(--bg);
+    background: var(--surface);
     border: 1px solid var(--border);
-    padding: 0.15rem 0.55rem;
-    transition: border-color 0.15s ease, color 0.15s ease;
+    padding: 0.25rem 0.6rem;
+    border-radius: 3px;
+    transition: all 0.15s ease;
   }
 
-  .skill-tag:hover {
-    border-color: var(--accent);
-    color: var(--accent);
+  .tool-chip:hover {
+    color: var(--text);
+    border-color: var(--border-strong);
   }
 
   @media (max-width: 768px) {
-    .skills-container { padding: 1.25rem; }
-    .skill-row { grid-template-columns: 1fr; gap: 0.5rem; }
+    .matrix-row {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: 1.25rem;
+    }
   }
 </style>
